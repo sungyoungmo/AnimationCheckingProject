@@ -1,0 +1,54 @@
+관리하기 쉽게 만들기 위해 
+	매니저를 통해 관리
+	
+확장성 좋게 만들기 위해
+	추상클래스로 작성
+	
+	추상클래스:
+		
+		protected byte buff
+		
+		[SerializeField]				(버프 시간은 인스펙터에서 설정 가능한게 편할 것 같음)
+		protected float buffDuration;
+		
+		public abstract void BuffOn(int buffIndex):
+		public abstract void BuffOff(int buffIndex):
+		public abstract bool HasBuff(int buffIndex);
+		
+		
+		
+위쪽은 수정이 필요하다 생각함		
+		
+		
+		
+enum buffList
+{
+	AttckDamage,
+	MoveSpeed,
+	AttackSpeed,
+	DefenseArmorUp
+}
+		
+		
+플레이어는 그냥 buffs라는 byte만 갖고 있으면 됨
+버프 매니저에서 플레이어 리스트를 가지고 있다가 이걸 조건에 맞는 플레이어한테 사용하기
+
+	
+	public void AddBuff(BuffType buffType)
+    {
+        buffs |= (byte)(1 << (int)buffType); // 해당 비트를 1로 설정
+    }
+
+    // 버프 제거
+    public void RemoveBuff(BuffType buffType)
+    {
+        buffs &= (byte)~(1 << (int)buffType); // 해당 비트를 0으로 설정
+    }
+
+    // 버프 확인
+    public bool HasBuff(BuffType buffType)
+    {
+        return (buffs & (1 << (int)buffType)) != 0; // 해당 비트가 1인지 확인
+    }
+	
+	

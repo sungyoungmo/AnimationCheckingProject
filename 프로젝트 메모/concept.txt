@@ -1,0 +1,38 @@
+에셋:
+	에셋스토어:
+				https://assetstore.unity.com/packages/vfx/shaders/flat-kit-toon-shading-and-water-143368
+				https://assetstore.unity.com/packages/vfx/quibli-anime-shaders-and-tools-203178
+				
+				셰이더를 입힐 수 있다면:
+					https://assetstore.unity.com/packages/3d/characters/robots/robot-kyle-urp-4696?locale=ko-KR
+					
+					https://assetstore.unity.com/packages/3d/characters/robots/mechanic-robot-family-character-animations-274703
+					https://assetstore.unity.com/packages/3d/characters/robots/mecha-bonker-robot-family-character-animations-274707
+					https://assetstore.unity.com/packages/3d/characters/robots/destroyer-robot-family-character-animations-274704
+					https://assetstore.unity.com/packages/3d/characters/robot-boss-character-vfx-260694
+					
+					얘네는 살짝 결이 다름
+					https://assetstore.unity.com/packages/3d/characters/robots/blast-robot-cute-series-198335
+					https://assetstore.unity.com/packages/3d/characters/creatures/target-dummy-cute-series-178692
+					
+					https://assetstore.unity.com/packages/3d/characters/robots/attack-bot-15120#reviews
+				보류:
+				https://assetstore.unity.com/packages/3d/environments/fantasy/suntail-stylized-fantasy-village-203303
+					ㄴ 좀 중세 시대 배경인데 메인으로 쓸 에셋이 도시 맵이라 스토리를 사용하게 짜면 사용 가능할 것 같음
+				
+				https://assetstore.unity.com/packages/3d/environments/urban/tokyo-street-228474
+					ㄴ 너무 용과같이임
+				
+	교수님 에셋:
+				캐릭터 관련:
+						https://assetstore.unity.com/packages/3d/animations/nodachi-animset-212073
+					
+						위에 있는 결이 살짝 다른애들이 여기 끼어있음
+						https://assetstore.unity.com/packages/3d/characters/robots/robots-ultimate-pack-02-cute-series-213777
+				UI 관련:
+						https://assetstore.unity.com/packages/2d/gui/ui-builder-29757
+						
+						로딩바인데 체력바로 사용 가능할 듯
+						https://assetstore.unity.com/packages/tools/gui/loading-screen-59069
+				
+				

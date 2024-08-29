@@ -22,6 +22,11 @@ public class MouseController : MonoBehaviour
 
     void Update()
     {
+        MouseMove();
+    }
+
+    void MouseMove()
+    {
         mouseXAxis = Input.GetAxis("Mouse X") * speed;
 
         rotationZ -= Input.GetAxis("Mouse Y") * speed;

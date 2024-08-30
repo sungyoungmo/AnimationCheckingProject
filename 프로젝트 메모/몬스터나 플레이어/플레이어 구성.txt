@@ -14,7 +14,8 @@ status
 	
 	int def: 방어력
 	int hp: 체력
-	
+	 int hpGenerate: 5초당 체력 회복량
+	 
 	int exp: 경험치
 	
 	bool isDead: 버프 지급에 사용

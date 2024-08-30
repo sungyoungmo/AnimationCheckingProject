@@ -5,61 +5,61 @@ using UnityEngine;
 
 public class CharacterMove : MonoBehaviourPun, IPunObservable
 {
-    readonly int Xdir = Animator.StringToHash("Xdir");
-    readonly int Ydir = Animator.StringToHash("Ydir");
-    
-    
+    public readonly int Xdir = Animator.StringToHash("Xdir");
+    public readonly int Ydir = Animator.StringToHash("Ydir");
+    public readonly int IsMove = Animator.StringToHash("IsMove");
+
     Vector2 xyMove = new Vector2();
     Animator anim;
-
 
     public float mouseYMinAngle = -35f;
     public float mouseYMaxAngle = 35f;
 
     public Transform cameraTransform;
     public Transform lookingSpot;
-    private float speed = 3f;
+
+    public float mouseSensitivity = 3f;
 
     private float mouseXAxis;
     private float rotationZ = 0f;
 
+    public bool _isMove;
+
     private void Awake()
-    {
-        anim = GetComponent<Animator>();
-    }
-    private void Start()
     {
         if (!photonView.IsMine) return;
 
         cameraTransform.gameObject.SetActive(true);
-        Cursor.visible = false;
-        Cursor.lockState = CursorLockMode.Locked;
+        //Cursor.visible = false;
+        //Cursor.lockState = CursorLockMode.Locked;
+
+        anim = GetComponent<Animator>();
+    }
+    private void Start()
+    {
+       
     }
 
-
-    private void Update()
+    public void PlayerMove()
     {
         if (!photonView.IsMine) return;
 
-        PlayerMove();
-
-        MouseMove();
-    }
-
-    private void PlayerMove()
-    {
         xyMove.x = Input.GetAxis("Horizontal");
         xyMove.y = Input.GetAxis("Vertical");
 
         anim.SetFloat(Xdir, xyMove.x);
         anim.SetFloat(Ydir, xyMove.y);
+
+        
     }
 
-    void MouseMove()
+    public void MouseMove()
     {
-        mouseXAxis = Input.GetAxis("Mouse X") * speed;
+        if (!photonView.IsMine) return;
 
-        rotationZ += Input.GetAxisRaw("Mouse Y") * speed;
+        mouseXAxis = Input.GetAxis("Mouse X") * mouseSensitivity;
+
+        rotationZ += Input.GetAxisRaw("Mouse Y") * mouseSensitivity;
 
         rotationZ = Mathf.Clamp(rotationZ, mouseYMinAngle, mouseYMaxAngle);
 
@@ -71,6 +71,11 @@ public class CharacterMove : MonoBehaviourPun, IPunObservable
 
     }
 
+    public void SetIsMoveOn(bool nowMove)
+    {
+        _isMove = nowMove;
+        anim.SetBool(IsMove, nowMove);
+    }
 
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {

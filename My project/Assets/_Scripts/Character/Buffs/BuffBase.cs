@@ -2,22 +2,25 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum BuffType
+public enum BuffOrDebuffType
 {
-	AttckDamage,
+	AttckDamage = 1,
 	MoveSpeed,
 	AttackSpeed,
-	DefenseArmorUp
+	DefenseArmorUp,
+
+	Bleeding = 9,
+	Stuck,
+	Slow
 }
 
-public class BuffBase : MonoBehaviour
+[CreateAssetMenu(fileName = "NewBuff", menuName = "_ScriptableObject/Buffs/BuffBase")]
+public abstract class BuffBase : ScriptableObject
 {
-	public float buffDuration;
-	
+	public float buffOrDebuffDuration;
 
+	public BuffOrDebuffType _BuffOrDebuffType;
 
-	public virtual void BuffEffect()
-    {
-		//버프 이펙트 발생
-    }
+	// 버프 매니저에서 buffbase.bufforde~ 를 호출하면 그에 맞는 버프나 디버프 발생
+	public abstract void BuffOrDebuffEffect(PlayerStatus _player);
 }

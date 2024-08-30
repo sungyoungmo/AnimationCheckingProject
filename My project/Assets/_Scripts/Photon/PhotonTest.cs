@@ -43,6 +43,7 @@ public class PhotonTest : MonoBehaviourPunCallbacks
 
     public override void OnJoinedRoom()
     {
-        PhotonNetwork.Instantiate("Player",new Vector3(0,0,0), Quaternion.identity);
+        GameObject a = PhotonNetwork.Instantiate("Player",new Vector3(0,0,0), Quaternion.identity);
+        BuffManager.instance.AddPlayerList(a.GetComponent<PlayerStatus>());
     }
 }

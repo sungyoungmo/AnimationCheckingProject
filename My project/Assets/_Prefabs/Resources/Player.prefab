@@ -567,12 +567,14 @@ GameObject:
   - component: {fileID: 2421416972194590507}
   - component: {fileID: 5697223032172839505}
   - component: {fileID: 2962975639082778146}
-  - component: {fileID: 5697223032172839504}
   - component: {fileID: 8983619856276764690}
   - component: {fileID: 7141174942914514489}
   - component: {fileID: 740046550196174299}
   - component: {fileID: 5491240533559746437}
   - component: {fileID: 3001705018511639879}
+  - component: {fileID: 5697223032172839504}
+  - component: {fileID: 2604866517477277458}
+  - component: {fileID: 1354468109032749845}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -638,29 +640,13 @@ MonoBehaviour:
   OwnershipTransfer: 0
   observableSearch: 1
   ObservedComponents:
-  - {fileID: 5697223032172839504}
   - {fileID: 8983619856276764690}
   - {fileID: 740046550196174299}
   - {fileID: 5491240533559746437}
+  - {fileID: 5697223032172839504}
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
---- !u!114 &5697223032172839504
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1711860649515310392}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 73bf6c615c03e4545afedc7815137563, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  mouseYMinAngle: -35
-  mouseYMaxAngle: 35
-  cameraTransform: {fileID: 20464462215967901}
-  lookingSpot: {fileID: 20464460873348015}
 --- !u!114 &8983619856276764690
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -730,6 +716,9 @@ MonoBehaviour:
   - Type: 1
     SynchronizeType: 0
     Name: Ydir
+  - Type: 4
+    SynchronizeType: 0
+    Name: IsMove
   m_SynchronizeLayers:
   - SynchronizeType: 0
     LayerIndex: 0
@@ -747,6 +736,63 @@ CapsuleCollider:
   m_Height: 1.7909479
   m_Direction: 1
   m_Center: {x: 0, y: 0.8878293, z: 0}
+--- !u!114 &5697223032172839504
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1711860649515310392}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 73bf6c615c03e4545afedc7815137563, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mouseYMinAngle: -35
+  mouseYMaxAngle: 35
+  cameraTransform: {fileID: 20464462215967901}
+  lookingSpot: {fileID: 20464460873348015}
+  mouseSensitivity: 3
+  _isMove: 0
+--- !u!114 &2604866517477277458
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1711860649515310392}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c5faa6ef51a253849bd05325d4be2793, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rootAtk: 0
+  lastAtk: 0
+  atk_spd: 0
+  lastAtk_spd: 0
+  spd: 0
+  lastSpd: 0
+  defArmor: 0
+  lastDefArmor: 0
+  maxHp: 0
+  currentHp: 0
+  hpGenerate: 0
+  exp: 0
+  isDead: 0
+  buffs_Or_Debuffs: 0
+--- !u!114 &1354468109032749845
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1711860649515310392}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9498d642ba68ae144933f4f23d34cd02, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  charMove: {fileID: 0}
 --- !u!1 &1739664815506058233
 GameObject:
   m_ObjectHideFlags: 0

@@ -22,7 +22,7 @@ public class PlayerMoveState : PlayerBaseState
     public override void OnStateUpdate()
     {
         _player.charMove.MouseMove();
-        _player.charMove.PlayerMove();
+        
 
         if (!(Input.GetKey(KeyCode.W) ||
             Input.GetKey(KeyCode.A) ||
@@ -31,5 +31,10 @@ public class PlayerMoveState : PlayerBaseState
         {
             _player.TransitionToState(_player.idleState);
         }
+    }
+
+    public override void OnStateFixedUpdate()
+    {
+        _player.charMove.PlayerMove();
     }
 }

@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CharacterMove : MonoBehaviourPun, IPunObservable
+public class CharacterInput : MonoBehaviourPun, IPunObservable
 {
     public readonly int Xdir = Animator.StringToHash("Xdir");
     public readonly int Ydir = Animator.StringToHash("Ydir");
@@ -30,8 +30,9 @@ public class CharacterMove : MonoBehaviourPun, IPunObservable
         if (!photonView.IsMine) return;
 
         cameraTransform.gameObject.SetActive(true);
-        //Cursor.visible = false;
-        //Cursor.lockState = CursorLockMode.Locked;
+
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
 
         anim = GetComponent<Animator>();
     }
@@ -50,7 +51,6 @@ public class CharacterMove : MonoBehaviourPun, IPunObservable
         anim.SetFloat(Xdir, xyMove.x);
         anim.SetFloat(Ydir, xyMove.y);
 
-        
     }
 
     public void MouseMove()

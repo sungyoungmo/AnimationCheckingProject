@@ -23,4 +23,8 @@ public class PlayerSkillState : PlayerBaseState
     {
 
     }
+    public override void OnStateFixedUpdate()
+    {
+        throw new System.NotImplementedException();
+    }
 }

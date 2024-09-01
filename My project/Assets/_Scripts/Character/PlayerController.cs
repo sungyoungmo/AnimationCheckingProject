@@ -5,16 +5,16 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
 
-    public PlayerBaseState currentState;
-    public PlayerIdleState idleState;
-    public PlayerMoveState moveState;
+    public PlayerBaseState currentState { get; private set; }
+    public PlayerIdleState idleState { get; private set; }
+    public PlayerMoveState moveState { get; private set; }
 
-    public CharacterMove charMove;
+    public CharacterInput charMove;
 
 
     private void Awake()
     {
-        charMove = GetComponent<CharacterMove>();
+        charMove = GetComponent<CharacterInput>();
 
         idleState = new PlayerIdleState(this);
         moveState = new PlayerMoveState(this);
@@ -29,6 +29,11 @@ public class PlayerController : MonoBehaviour
     private void Update()
     {
         currentState.OnStateUpdate();
+    }
+
+    private void FixedUpdate()
+    {
+        currentState.OnStateFixedUpdate();
     }
 
     public void TransitionToState(PlayerBaseState newState)

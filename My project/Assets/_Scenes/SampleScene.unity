@@ -1331,6 +1331,7 @@ MonoBehaviour:
   testList: []
   buffList:
   - {fileID: 11400000, guid: 8636463b8001efa4d858a7036358d7b5, type: 2}
+  - {fileID: 11400000, guid: 95668790a347c9e46ae236d3e02e7add, type: 2}
 --- !u!4 &2146319987
 Transform:
   m_ObjectHideFlags: 0

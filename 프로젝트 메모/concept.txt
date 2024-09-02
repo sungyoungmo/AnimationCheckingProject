@@ -35,4 +35,19 @@
 						로딩바인데 체력바로 사용 가능할 듯
 						https://assetstore.unity.com/packages/tools/gui/loading-screen-59069
 				
-				
+				※아래는 아직 안 받음
+				파티클 관련:
+						(회오리 갖고 싶은데 그래픽이 잘 맞지 않을 것 같음)
+						100 Special Skills Effects Pack | Spells | Unity Asset Store
+						https://assetstore.unity.com/packages/vfx/particles/spells/100-special-skills-effects-pack-171146
+
+						AOE Magic spells Vol.1
+						https://assetstore.unity.com/packages/vfx/particles/spells/aoe-magic-spells-vol-1-133012
+						
+						(여기 있는 박스 갖고 싶음)
+						Epic Toon FX | VFX Particles | Unity Asset Store
+						https://assetstore.unity.com/packages/vfx/particles/epic-toon-fx-57772
+						
+						(여기 있는 애니메이션 및 파티클 사용)
+						Magic Slashes FX | VFX Particles | Unity Asset Store
+						https://assetstore.unity.com/packages/vfx/particles/magic-slashes-fx-114452

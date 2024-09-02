@@ -8,9 +8,7 @@ public class PlayerIdleState : PlayerBaseState
     { 
     
     }
-
-    float playerXMove;
-    float playerYMove;
+    KeyCode[] skillKeys = { KeyCode.Mouse0, KeyCode.Mouse1, KeyCode.Space, KeyCode.F };
 
     public override void OnStateEnter()
     {
@@ -26,8 +24,6 @@ public class PlayerIdleState : PlayerBaseState
     {
         _player.charMove.MouseMove();
 
-        playerXMove = Input.GetAxisRaw("Horizontal");
-        playerYMove = Input.GetAxisRaw("Vertical");
 
         if (Input.GetKey(KeyCode.W) ||
             Input.GetKey(KeyCode.A) ||
@@ -37,6 +33,23 @@ public class PlayerIdleState : PlayerBaseState
             _player.TransitionToState(_player.moveState);
         }
 
+        //if (Input.GetMouseButtonDown(0) ||
+        //    Input.GetMouseButtonDown(1) ||
+        //    Input.GetKeyDown(KeyCode.Space) ||
+        //    Input.GetKeyDown(KeyCode.F)
+        //    )
+        //{
+        //    _player.TransitionToState(_player.skillState);
+        //}
+
+        foreach (var keyInput in skillKeys)
+        {
+            if (Input.GetKeyDown(keyInput))
+            {
+                _player.TransitionToSkillState(keyInput);
+                break;
+            }
+        }
     }
 
     public override void OnStateFixedUpdate()

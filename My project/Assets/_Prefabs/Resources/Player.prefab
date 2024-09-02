@@ -748,12 +748,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 73bf6c615c03e4545afedc7815137563, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  anim: {fileID: 0}
   mouseYMinAngle: -35
   mouseYMaxAngle: 35
   cameraTransform: {fileID: 20464462215967901}
   lookingSpot: {fileID: 20464460873348015}
   mouseSensitivity: 3
   _isMove: 0
+  _isAttack: 0
 --- !u!114 &2604866517477277458
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -770,9 +772,9 @@ MonoBehaviour:
   lastAtk: 0
   atk_spd: 0
   lastAtk_spd: 0
-  spd: 0
+  rootSpd: 0
   lastSpd: 0
-  defArmor: 0
+  rootDefArmor: 0
   lastDefArmor: 0
   maxHp: 0
   currentHp: 0

@@ -12,10 +12,16 @@ public class BuffManager : MonoBehaviour
     public List<PlayerStatus> testList = new();
 
     public List<BuffBase> buffList;
+    public Dictionary<BuffOrDebuffType, BuffBase> buffDic = new();
 
     private void Awake()
     {
         instance = this;
+
+        foreach (var buff in buffList)
+        {
+            buffDic.Add(buff._BuffOrDebuffType, buff);
+        }
     }
 
     /// <summary>
@@ -29,9 +35,25 @@ public class BuffManager : MonoBehaviour
         testList.Add(_player);
     }
 
+    //버튼에서 호출할 적용 시험용 함수
     public void AddBuffTest()
     {
+        AddBuff(BuffOrDebuffType.AttackDamage, testList);
         AddBuff(BuffOrDebuffType.MoveSpeed, testList);
+    }
+
+    // dictionary에서 버프가 있는 지 찾는 함수
+    private BuffBase BuffListSearching(BuffOrDebuffType buffType)
+    {
+        if (buffDic.TryGetValue(buffType, out BuffBase buff))
+        {
+            return buff;
+        }
+        else
+        {
+            Debug.Log("버프 없음");
+            return null;
+        }
     }
 
     public void AddBuff(BuffOrDebuffType buffType, List<PlayerStatus> playerList)
@@ -40,15 +62,8 @@ public class BuffManager : MonoBehaviour
         //buffs |= (byte)(1 << (int)buffType); // 해당 비트를 1로 설정
         BuffBase targetBuff = null;
 
-        foreach (var buff in buffList)
-        {
-            if (buff._BuffOrDebuffType == buffType)
-            {
-                targetBuff = buff;
-            }
-        }
-        if (targetBuff == null) print(1);
-
+        targetBuff = BuffListSearching(buffType);
+        
 
         foreach (var player in playerList)
         {
@@ -83,13 +98,7 @@ public class BuffManager : MonoBehaviour
         //캐릭터의 버프 바이트가 되고 팀을 짜서 연결
         BuffBase targetBuff = null;
 
-        foreach (var buff in buffList)
-        {
-            if (buff._BuffOrDebuffType == buffType)
-            {
-                targetBuff = buff;
-            }
-        }
+        targetBuff = BuffListSearching(buffType);
 
         foreach (var player in playerList)
         {
@@ -115,7 +124,7 @@ public class BuffManager : MonoBehaviour
     }
 
     /// <summary>
-    /// 플레이어 단일의 버프 해제할 때 사용(죽었을 버프를 잃게 사용할 계획)
+    /// 플레이어 단일의 버프 해제할 때 사용하려고 오버로드한 함수(죽었을 버프를 잃게 사용할 계획)
     /// </summary>
     /// <param name="buffType"></param>
     /// <param name="player"></param>
@@ -123,13 +132,7 @@ public class BuffManager : MonoBehaviour
     {
         BuffBase targetBuff = null;
 
-        foreach (var buff in buffList)
-        {
-            if (buff._BuffOrDebuffType == buffType)
-            {
-                targetBuff = buff;
-            }
-        }
+        targetBuff = BuffListSearching(buffType);
 
         if (targetBuff != null && HasBuff(buffType, player))
         {

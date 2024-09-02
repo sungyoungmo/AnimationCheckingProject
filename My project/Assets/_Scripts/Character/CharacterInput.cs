@@ -8,9 +8,14 @@ public class CharacterInput : MonoBehaviourPun, IPunObservable
     public readonly int Xdir = Animator.StringToHash("Xdir");
     public readonly int Ydir = Animator.StringToHash("Ydir");
     public readonly int IsMove = Animator.StringToHash("IsMove");
+    public readonly int LeftMouse = Animator.StringToHash("LeftMouse");
+    public readonly int IsAttack = Animator.StringToHash("IsAttack");
+    public readonly int RightMouse = Animator.StringToHash("RightMouse");
+    public readonly int SpaceBar = Animator.StringToHash("SpaceBar");
+    public readonly int IsDodge = Animator.StringToHash("IsDodge");
 
     Vector2 xyMove = new Vector2();
-    Animator anim;
+    public Animator anim;
 
     public float mouseYMinAngle = -35f;
     public float mouseYMaxAngle = 35f;
@@ -24,6 +29,7 @@ public class CharacterInput : MonoBehaviourPun, IPunObservable
     private float rotationZ = 0f;
 
     public bool _isMove;
+    public bool _isAttack;
 
     private void Awake()
     {
@@ -31,8 +37,8 @@ public class CharacterInput : MonoBehaviourPun, IPunObservable
 
         cameraTransform.gameObject.SetActive(true);
 
-        //Cursor.visible = false;
-        //Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
 
         anim = GetComponent<Animator>();
     }
@@ -76,6 +82,13 @@ public class CharacterInput : MonoBehaviourPun, IPunObservable
         _isMove = nowMove;
         anim.SetBool(IsMove, nowMove);
     }
+
+    public void SetIsAttackOn(bool nowAttack)
+    {
+        _isAttack = nowAttack;
+        anim.SetBool(IsAttack, nowAttack);
+    }
+
 
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {

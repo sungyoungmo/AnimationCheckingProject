@@ -4,7 +4,7 @@ using UnityEngine;
 
 public enum BuffOrDebuffType
 {
-	AttckDamage = 1,
+	AttackDamage = 1,
 	MoveSpeed,
 	AttackSpeed,
 	DefenseArmorUp,
@@ -25,4 +25,5 @@ public abstract class BuffBase : ScriptableObject
 	public abstract void BuffOrDebuffEffect(PlayerStatus _player);
 
 	public abstract void BuffOrDebuffEffectClear(PlayerStatus _player);
+
 }

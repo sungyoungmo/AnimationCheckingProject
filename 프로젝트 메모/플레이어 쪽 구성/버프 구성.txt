@@ -1,0 +1,57 @@
+관리하기 쉽게 만들기 위해 
+	매니저를 통해 관리
+		
+enum buffList
+{
+	AttckDamage,
+	MoveSpeed,
+	AttackSpeed,
+	DefenseArmorUp
+}
+		
+		
+플레이어는 그냥 buffs라는 byte만 갖고 있으면 됨
+버프 매니저에서 플레이어 리스트를 가지고 있다가 이걸 조건에 맞는 플레이어한테 사용하기
+
+	
+	public void AddBuff(BuffType buffType)
+    {
+        buffs |= (byte)(1 << (int)buffType); // 해당 비트를 1로 설정
+    }
+
+    // 버프 제거
+    public void RemoveBuff(BuffType buffType)
+    {
+        buffs &= (byte)~(1 << (int)buffType); // 해당 비트를 0으로 설정
+    }
+
+    // 버프 확인
+    public bool HasBuff(BuffType buffType)
+    {
+        return (buffs & (1 << (int)buffType)) != 0; // 해당 비트가 1인지 확인
+    }
+	
+
+	
+public override void BuffOrDebuffEffect(PlayerStatus _player)
+{
+    _player.lastDefArmor = _player.lastDefArmor + _player.lastDefArmor / 5;
+}
+
+public override void BuffOrDebuffEffectClear(PlayerStatus _player)
+{
+    _player.lastDefArmor = _player.defArmor;
+}
+	
+근데 버프가 있는 상태에서 아이템을 사서 루트능력치를 올려버리면?
+아이템을 산 시점에 업데이트 한다.
+
+업데이트 시에
+	버프
+		last의 값만 가져오고 값을 다시 계산한다.
+	플레이어
+		root값을 변경한다.
+		root = last를 한다.
+		그리고 버프 유무를 판단해 버프 이펙트 함수를 호출해서 올라간 능력치를 업데이트한다.
+		
+	

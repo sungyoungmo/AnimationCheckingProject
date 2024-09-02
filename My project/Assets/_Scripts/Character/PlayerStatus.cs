@@ -10,10 +10,10 @@ public class PlayerStatus : MonoBehaviour
     public float atk_spd;   // 공격 속도(애니메이션에 입혀 공격 속도 조정)
     public float lastAtk_spd;   // 버프 적용 후, 최종적으로 계산된 실제 공격 속도
 
-    public float spd;   // 이동 속도(애니메이션과 연동해 이동속도 조절)
+    public float rootSpd;   // 이동 속도(애니메이션과 연동해 이동속도 조절)
     public float lastSpd;   // 버프 적용 후, 최종적으로 계산된 실제 이동 속도
 
-    public int defArmor;    // hit 때 데미지 조절을 위한 방어력 계수
+    public int rootDefArmor;    // hit 때 데미지 조절을 위한 방어력 계수
     public int lastDefArmor;    // 버프 적용 후, 최종적으로 계산된 실제 방어력
 
     public int maxHp;    // 체력 / 100

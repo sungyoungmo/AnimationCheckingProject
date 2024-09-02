@@ -576,7 +576,7 @@ GameObject:
   - component: {fileID: 2604866517477277458}
   - component: {fileID: 1354468109032749845}
   m_Layer: 0
-  m_Name: Player
+  m_Name: Samurai
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -748,6 +748,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 73bf6c615c03e4545afedc7815137563, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  xyMove: {x: 0, y: 0}
   anim: {fileID: 0}
   mouseYMinAngle: -35
   mouseYMaxAngle: 35

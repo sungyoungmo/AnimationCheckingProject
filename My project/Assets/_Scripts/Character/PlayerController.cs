@@ -9,6 +9,7 @@ public class PlayerController : MonoBehaviour
     public PlayerIdleState idleState { get; private set; }
     public PlayerMoveState moveState { get; private set; }
     public PlayerSkillState skillState { get; private set; }
+    public PlayerDodgeState dodgeState { get; private set; }
 
     public CharacterInput charMove;
 
@@ -20,6 +21,7 @@ public class PlayerController : MonoBehaviour
         idleState = new PlayerIdleState(this);
         moveState = new PlayerMoveState(this);
         skillState = new PlayerSkillState(this);
+        dodgeState = new PlayerDodgeState(this);
     }
 
     private void OnEnable()
@@ -40,19 +42,15 @@ public class PlayerController : MonoBehaviour
 
     public void TransitionToState(PlayerBaseState newState)
     {
-        //print($"{currentState}에서 {newState}로 변경됨");
-
         currentState.OnStateExit();
         currentState = newState;
         currentState.OnStateEnter();
     }
 
-    public void TransitionToSkillState(KeyCode input)
+    public void TransitionToState(PlayerBaseState newState, KeyCode input)
     {
-        //print($"{currentState}에서 {newState}로 변경됨");
-
         currentState.OnStateExit();
-        currentState = skillState;
+        currentState = newState;
         skillState.OnStateEnter(input);
     }
 }

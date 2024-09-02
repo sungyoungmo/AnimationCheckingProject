@@ -33,12 +33,6 @@ public class PlayerSkillState : PlayerBaseState
                 //battleTime = 3f;
                 break;
 
-            case KeyCode.Space:
-                _player.charMove.anim.SetTrigger(_player.charMove.SpaceBar);
-                _player.charMove.anim.SetBool(_player.charMove.IsDodge, true);
-                //battleTime = 1f;
-                break;
-
             case KeyCode.F:
 
                 break;
@@ -68,6 +62,8 @@ public class PlayerSkillState : PlayerBaseState
 
             battleTime = 0;
         }
+
+        _player.charMove.InputCheck();
     }
 
     public override void OnStateFixedUpdate()

@@ -43,7 +43,8 @@ public class PhotonTest : MonoBehaviourPunCallbacks
 
     public override void OnJoinedRoom()
     {
-        GameObject a = PhotonNetwork.Instantiate("Player",new Vector3(0,0,0), Quaternion.identity);
+        // switch나 if문을 통해 samurai 바꿔 받기
+        GameObject a = PhotonNetwork.Instantiate("Samurai",new Vector3(0,0,0), Quaternion.identity);
         BuffManager.instance.AddPlayerList(a.GetComponent<PlayerStatus>());
     }
 }

@@ -8,7 +8,7 @@ public class PlayerMoveState : PlayerBaseState
     {
 
     }
-    KeyCode[] skillKeys = { KeyCode.Mouse0, KeyCode.Mouse1, KeyCode.Space, KeyCode.F };
+    KeyCode[] skillKeys = { KeyCode.Mouse0, KeyCode.Mouse1, KeyCode.F };
 
     public override void OnStateEnter()
     {
@@ -18,40 +18,17 @@ public class PlayerMoveState : PlayerBaseState
     public override void OnStateExit()
     {
         _player.charMove.SetIsMoveOn(false);
+
+        //_player.charMove.xyMove = new Vector3(0, 0, 0);
+        //_player.charMove.anim.SetFloat(_player.charMove.Xdir, 0);
+        //_player.charMove.anim.SetFloat(_player.charMove.Ydir, 0);
     }
 
     public override void OnStateUpdate()
     {
         _player.charMove.MouseMove();
-        
-        // IdleState·Î
-        if (!(
-            Input.GetKey(KeyCode.W) ||
-            Input.GetKey(KeyCode.A) ||
-            Input.GetKey(KeyCode.S) ||
-            Input.GetKey(KeyCode.D)))
-        {
-            _player.TransitionToState(_player.idleState);
-        }
 
-        // SkillState·Î
-        //if (Input.GetMouseButtonDown(0) ||
-        //    Input.GetMouseButtonDown(1) ||
-        //    Input.GetKeyDown(KeyCode.Space) ||
-        //    Input.GetKeyDown(KeyCode.F)
-        //    )
-        //{
-        //    _player.TransitionToState(_player.skillState);
-        //}
-
-        foreach (var keyInput in skillKeys)
-        {
-            if (Input.GetKeyDown(keyInput))
-            {
-                _player.TransitionToSkillState(keyInput);
-                break;
-            }
-        }
+        _player.charMove.InputCheck();
 
     }
 

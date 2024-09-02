@@ -14,8 +14,11 @@ public class CharacterInput : MonoBehaviourPun, IPunObservable
     public readonly int SpaceBar = Animator.StringToHash("SpaceBar");
     public readonly int IsDodge = Animator.StringToHash("IsDodge");
 
-    Vector2 xyMove = new Vector2();
+    KeyCode[] skillKeys = { KeyCode.Mouse0, KeyCode.Mouse1, KeyCode.F };
+
+    public Vector2 xyMove = new Vector2();
     public Animator anim;
+    PlayerController playerController;
 
     public float mouseYMinAngle = -35f;
     public float mouseYMaxAngle = 35f;
@@ -41,10 +44,11 @@ public class CharacterInput : MonoBehaviourPun, IPunObservable
         Cursor.lockState = CursorLockMode.Locked;
 
         anim = GetComponent<Animator>();
+        playerController = GetComponent<PlayerController>();
     }
     private void Start()
     {
-       
+
     }
 
     public void PlayerMove()
@@ -74,7 +78,43 @@ public class CharacterInput : MonoBehaviourPun, IPunObservable
         lookingSpot.localEulerAngles = new Vector3(0, -90, rotationZ);
 
         cameraTransform.transform.LookAt(lookingSpot.position);
+    }
 
+    public void InputCheck()
+    {
+        if (!_isMove && !_isAttack &&
+            (
+            Input.GetKey(KeyCode.W) ||
+            Input.GetKey(KeyCode.A) ||
+            Input.GetKey(KeyCode.S) ||
+            Input.GetKey(KeyCode.D)))
+        {
+            playerController.TransitionToState(playerController.moveState);
+        }
+        else if 
+            (_isMove && !_isAttack &&
+            !(
+            Input.GetKey(KeyCode.W) ||
+            Input.GetKey(KeyCode.A) ||
+            Input.GetKey(KeyCode.S) ||
+            Input.GetKey(KeyCode.D)))
+        {
+            playerController.TransitionToState(playerController.idleState);
+        }
+
+        foreach (var keyInput in skillKeys)
+        {
+            if (Input.GetKeyDown(keyInput))
+            {
+                playerController.TransitionToState(playerController.skillState,keyInput);
+                break;
+            }
+        }
+
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            playerController.TransitionToState(playerController.dodgeState);
+        }
     }
 
     public void SetIsMoveOn(bool nowMove)
@@ -92,6 +132,6 @@ public class CharacterInput : MonoBehaviourPun, IPunObservable
 
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {
-        
+
     }
 }

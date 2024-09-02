@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eed8a92e854280b4da8ba9ed4b579be2, type: 3}
   m_Name: SpeedBuffScriptableObject
   m_EditorClassIdentifier: 
-  buffOrDebuffDuration: 0
-  _BuffOrDebuffType: 1
+  buffOrDebuffDuration: 120
+  _BuffOrDebuffType: 2

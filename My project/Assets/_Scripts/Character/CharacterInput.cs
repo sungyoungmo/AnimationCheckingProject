@@ -31,8 +31,8 @@ public class CharacterInput : MonoBehaviourPun, IPunObservable
 
         cameraTransform.gameObject.SetActive(true);
 
-        Cursor.visible = false;
-        Cursor.lockState = CursorLockMode.Locked;
+        //Cursor.visible = false;
+        //Cursor.lockState = CursorLockMode.Locked;
 
         anim = GetComponent<Animator>();
     }

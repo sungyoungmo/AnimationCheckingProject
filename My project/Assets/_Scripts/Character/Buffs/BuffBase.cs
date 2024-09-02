@@ -23,4 +23,6 @@ public abstract class BuffBase : ScriptableObject
 
 	// 버프 매니저에서 buffbase.bufforde~ 를 호출하면 그에 맞는 버프나 디버프 발생
 	public abstract void BuffOrDebuffEffect(PlayerStatus _player);
+
+	public abstract void BuffOrDebuffEffectClear(PlayerStatus _player);
 }

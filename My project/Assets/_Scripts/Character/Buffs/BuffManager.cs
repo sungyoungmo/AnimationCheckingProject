@@ -12,19 +12,10 @@ public class BuffManager : MonoBehaviour
     public List<PlayerStatus> testList = new();
 
     public List<BuffBase> buffList;
-    Dictionary<BuffBase, BuffOrDebuffType> buffOrDebuffDic = new();
 
     private void Awake()
     {
         instance = this;
-
-
-        for (int i = 0; i < buffList.Count; i++)
-        {
-            buffOrDebuffDic.Add(buffList[i], buffList[i]._BuffOrDebuffType);
-            print(buffOrDebuffDic.Count);
-        }
-
     }
 
     /// <summary>
@@ -49,13 +40,15 @@ public class BuffManager : MonoBehaviour
         //buffs |= (byte)(1 << (int)buffType); // 해당 비트를 1로 설정
         BuffBase targetBuff = null;
 
-        foreach (var buff in buffOrDebuffDic)
+        foreach (var buff in buffList)
         {
-            if (buff.Value == buffType)
+            if (buff._BuffOrDebuffType == buffType)
             {
-                targetBuff = buff.Key;
+                targetBuff = buff;
             }
         }
+        if (targetBuff == null) print(1);
+
 
         foreach (var player in playerList)
         {
@@ -72,6 +65,8 @@ public class BuffManager : MonoBehaviour
                 }
                 else
                 {
+                    //print($"버프 적용 타입: {targetBuff._BuffOrDebuffType} 플레이어 버프 유무: {HasBuff(buffType, player)}");
+
                     print("버프적용 안됨");
                 }
             }
@@ -88,11 +83,11 @@ public class BuffManager : MonoBehaviour
         //캐릭터의 버프 바이트가 되고 팀을 짜서 연결
         BuffBase targetBuff = null;
 
-        foreach (var buff in buffOrDebuffDic)
+        foreach (var buff in buffList)
         {
-            if (buff.Value == buffType)
+            if (buff._BuffOrDebuffType == buffType)
             {
-                targetBuff = buff.Key;
+                targetBuff = buff;
             }
         }
 
@@ -128,11 +123,11 @@ public class BuffManager : MonoBehaviour
     {
         BuffBase targetBuff = null;
 
-        foreach (var buff in buffOrDebuffDic)
+        foreach (var buff in buffList)
         {
-            if (buff.Value == buffType)
+            if (buff._BuffOrDebuffType == buffType)
             {
-                targetBuff = buff.Key;
+                targetBuff = buff;
             }
         }
 
@@ -155,7 +150,12 @@ public class BuffManager : MonoBehaviour
     }
 
 
-    // 버프 확인
+    /// <summary>
+    /// 해당 플레이어가 버프를 갖고 있는지 확인하는 함수
+    /// </summary>
+    /// <param name="buffType"></param>
+    /// <param name="_player"></param>
+    /// <returns></returns>
     bool HasBuff(BuffOrDebuffType buffType, PlayerStatus _player)
     {
         //캐릭터의 버프 바이트가 되고 팀을 짜서 연결

@@ -8,5 +8,12 @@ public class SpeedBuff : BuffBase
     public override void BuffOrDebuffEffect(PlayerStatus _player)
     {
         _player.lastSpd = _player.lastSpd + (int)(_player.lastSpd / 5) ;
+        _player.gameObject.GetComponent<Animator>().SetFloat("MoveSpeed", 1.2f);
+    }
+
+    public override void BuffOrDebuffEffectClear(PlayerStatus _player)
+    {
+        _player.lastSpd = _player.spd;
+        _player.gameObject.GetComponent<Animator>().SetFloat("MoveSpeed", 1.0f);
     }
 }

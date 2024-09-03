@@ -17,14 +17,14 @@ public class PlayerIdleState : PlayerBaseState
 
     public override void OnStateExit()
     {
-        
+        _player.charMove.DodgeDirectionCheck();
     }
 
     public override void OnStateUpdate()
     {
         _player.charMove.MouseMove();
 
-        _player.charMove.DodgeDirectionCheck();
+        //
 
         _player.charMove.InputCheck();
     }

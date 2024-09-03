@@ -10,9 +10,12 @@ public class PlayerController : MonoBehaviour
     public PlayerMoveState moveState { get; private set; }
     public PlayerSkillState skillState { get; private set; }
     public PlayerDodgeState dodgeState { get; private set; }
+    public PlayerHitState hitState { get; private set; }
+    
 
     public CharacterInput charMove;
 
+    
 
     private void Awake()
     {
@@ -22,6 +25,7 @@ public class PlayerController : MonoBehaviour
         moveState = new PlayerMoveState(this);
         skillState = new PlayerSkillState(this);
         dodgeState = new PlayerDodgeState(this);
+        hitState = new PlayerHitState(this);
     }
 
     private void OnEnable()

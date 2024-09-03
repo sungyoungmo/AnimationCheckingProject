@@ -11,6 +11,8 @@ public class PlayerDodgeState : PlayerBaseState
 
     float dodgeTime;
 
+    Vector2 dodgeDirVector = new();
+
     public override void OnStateEnter()
     {
         _player.charMove.anim.SetTrigger(_player.charMove.SpaceBar);

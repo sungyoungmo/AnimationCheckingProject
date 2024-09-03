@@ -9,12 +9,11 @@ public class PlayerSkillState : PlayerBaseState
     
     }
 
-    float battleTime;
-
     public override void OnStateEnter()
     {
 
     }
+    AnimatorStateInfo animStateInfo;
 
     // input을 받아오기
     public void OnStateEnter(KeyCode input)
@@ -38,7 +37,6 @@ public class PlayerSkillState : PlayerBaseState
                 break;
         }
 
-        battleTime = 0;
     }
 
     public override void OnStateExit()
@@ -49,23 +47,21 @@ public class PlayerSkillState : PlayerBaseState
 
     public override void OnStateUpdate()
     {
-        battleTime += Time.deltaTime;
+        animStateInfo = _player.charMove.anim.GetCurrentAnimatorStateInfo(0);
 
-        _player.charMove.DodgeDirectionCheck();
-
-        if (battleTime > 1.0f)
+        if (animStateInfo.IsName("Idle") && animStateInfo.normalizedTime >= 0.05f)
         {
             _player.TransitionToState(_player.idleState);
         }
+
+        _player.charMove.DodgeDirectionCheck();
+
 
         if (Input.GetKeyDown(KeyCode.Mouse0))
         {
             _player.charMove.anim.SetTrigger(_player.charMove.LeftMouse);
 
-            battleTime = 0;
         }
-
-        
 
         _player.charMove.InputCheck();
     }

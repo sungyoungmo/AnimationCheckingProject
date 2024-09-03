@@ -25,6 +25,6 @@ public class PlayerHitState : PlayerBaseState
     }
     public override void OnStateFixedUpdate()
     {
-        throw new System.NotImplementedException();
+        
     }
 }

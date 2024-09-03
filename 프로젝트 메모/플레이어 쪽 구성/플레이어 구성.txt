@@ -16,6 +16,7 @@ status
 	int hp: 체력
 	 int hpGenerate: 5초당 체력 회복량
 	 
+	int level: 레벨
 	int exp: 경험치
 	
 	bool isDead: 버프 지급에 사용
@@ -24,7 +25,7 @@ status
 
 	int gold:	플레이어가 몬스터 처치 및 플레이어 처치 후 얻은 골드
 
-
+	 CharClass playerClass: 플레이어 직업
 
 
 
@@ -39,12 +40,18 @@ state:move
 	
 state:skill
 	들어오는 input에 따라 콜라이더 활성화하고 상태 나갈 때 콜라이더 비활성화
-
+	
+	강화: 필요 포인트는 1 로 캐릭터 맥스 레벨은 5, 1레벨에 기본으로 1, 레벨 당 1
+	
+	
 	좌클: 기본 공격
+		설명: 기본 공격기
+		
+		계수: 
 	
 	우클: 기본 스킬 1
 		설명: 회오리같은 쿨타임 짧은 원거리 공격기 
-		계수: 	첫 주위 공격 int(lastAtk * 1.2 / 1.5 / 2.0) 필요 포인트는 1,1,2 로 캐릭터 맥스 레벨은 6
+		계수: 	첫 주위 공격 int(lastAtk * 1.5 / 1.5 / 2.0) 
 				회오리 공격 int(lastAtk * )	
 		
 		이유: 원거리 공격이 필요하다 생각했고 회오리인 이유는 애니메이션이 빙글돌음
@@ -66,4 +73,9 @@ state:dodge
 	
 	방향키를 받아서 긴급 회피 느낌으로 피하기
 	
-	공격이 나가기 전 회피 연타하면 바로 state는 dodge로 넘어오는데 1초 후에 idle이나 move로 넘어가서 dircheck를 해서 axisRaw가 0,0이 되어서 빙글도는 현상 발생
+	문제: 공격이 나가기 전 회피 연타하면 바로 state는 dodge로 넘어오는데 1초 후에 idle이나 move로 넘어가서 dircheck를 해서 axisRaw가 0,0이 되어서 빙글도는 현상 발생
+	
+	방안: 상태를 넘어갈 때 벡터를 넘겨서 그걸로 설정하게 만들기
+	
+	해결: idleState에서 나갈 때 한 번 dircheck를 해서 dodgeState로 넘어가기
+	

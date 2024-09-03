@@ -13,7 +13,7 @@ public class PlayerSkillState : PlayerBaseState
     {
 
     }
-    AnimatorStateInfo animStateInfo;
+    
 
     // input을 받아오기
     public void OnStateEnter(KeyCode input)
@@ -47,9 +47,9 @@ public class PlayerSkillState : PlayerBaseState
 
     public override void OnStateUpdate()
     {
-        animStateInfo = _player.charMove.anim.GetCurrentAnimatorStateInfo(0);
+        _player.charMove.SetAnimState();
 
-        if (animStateInfo.IsName("Idle") && animStateInfo.normalizedTime >= 0.05f)
+        if (_player.charMove.animStateInfo.IsName("Idle") && _player.charMove.animStateInfo.normalizedTime >= 0.05f)
         {
             _player.TransitionToState(_player.idleState);
         }

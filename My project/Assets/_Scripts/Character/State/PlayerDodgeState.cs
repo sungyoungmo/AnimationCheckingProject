@@ -8,7 +8,6 @@ public class PlayerDodgeState : PlayerBaseState
     {
 
     }
-
     float dodgeTime;
 
     Vector2 dodgeDirVector = new();
@@ -25,7 +24,7 @@ public class PlayerDodgeState : PlayerBaseState
         }
 
 
-        dodgeTime = 1;
+        dodgeTime = 0.75f;
     }
 
     public override void OnStateExit()
@@ -35,7 +34,15 @@ public class PlayerDodgeState : PlayerBaseState
 
     public override void OnStateFixedUpdate()
     {
-        dodgeTime -= Time.deltaTime;
+
+        _player.charMove.SetAnimState();
+
+        if (_player.charMove.animStateInfo.IsName("RollTree"))
+        {
+            Debug.Log(1);
+            dodgeTime -= Time.deltaTime;
+        }
+
         if (dodgeTime < 0)
         {
             _player.TransitionToState(_player.idleState);

@@ -18,6 +18,8 @@ public class CharacterInput : MonoBehaviourPun, IPunObservable
 
     KeyCode[] skillKeys = { KeyCode.Mouse0, KeyCode.Mouse1, KeyCode.F };
 
+    public AnimatorStateInfo animStateInfo;
+
     public Vector2 xyMove = new Vector2();
     public Vector2 xyMoveRaw = new Vector2();
 
@@ -129,6 +131,11 @@ public class CharacterInput : MonoBehaviourPun, IPunObservable
         {
             playerController.TransitionToState(playerController.dodgeState);
         }
+    }
+
+    public void SetAnimState()
+    {
+        animStateInfo = anim.GetCurrentAnimatorStateInfo(0);
     }
 
     public void SetIsMoveOn(bool nowMove)

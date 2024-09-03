@@ -13,10 +13,14 @@ public class CharacterInput : MonoBehaviourPun, IPunObservable
     public readonly int RightMouse = Animator.StringToHash("RightMouse");
     public readonly int SpaceBar = Animator.StringToHash("SpaceBar");
     public readonly int IsDodge = Animator.StringToHash("IsDodge");
+    public readonly int XdirRaw = Animator.StringToHash("XdirRaw");
+    public readonly int YdirRaw = Animator.StringToHash("YdirRaw");
 
     KeyCode[] skillKeys = { KeyCode.Mouse0, KeyCode.Mouse1, KeyCode.F };
 
     public Vector2 xyMove = new Vector2();
+    public Vector2 xyMoveRaw = new Vector2();
+
     public Animator anim;
     PlayerController playerController;
 
@@ -58,9 +62,19 @@ public class CharacterInput : MonoBehaviourPun, IPunObservable
         xyMove.x = Input.GetAxis("Horizontal");
         xyMove.y = Input.GetAxis("Vertical");
 
+
         anim.SetFloat(Xdir, xyMove.x);
         anim.SetFloat(Ydir, xyMove.y);
 
+    }
+
+    public void DodgeDirectionCheck()
+    {
+        xyMoveRaw.x = Input.GetAxisRaw("Horizontal");
+        xyMoveRaw.y = Input.GetAxisRaw("Vertical");
+
+        anim.SetFloat(XdirRaw, xyMoveRaw.x);
+        anim.SetFloat(YdirRaw, xyMoveRaw.y);
     }
 
     public void MouseMove()

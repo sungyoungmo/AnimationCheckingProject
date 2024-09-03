@@ -51,6 +51,8 @@ public class PlayerSkillState : PlayerBaseState
     {
         battleTime += Time.deltaTime;
 
+        _player.charMove.DodgeDirectionCheck();
+
         if (battleTime > 1.0f)
         {
             _player.TransitionToState(_player.idleState);
@@ -62,6 +64,8 @@ public class PlayerSkillState : PlayerBaseState
 
             battleTime = 0;
         }
+
+        
 
         _player.charMove.InputCheck();
     }

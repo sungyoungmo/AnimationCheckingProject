@@ -749,6 +749,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   xyMove: {x: 0, y: 0}
+  xyMoveRaw: {x: 0, y: 0}
   anim: {fileID: 0}
   mouseYMinAngle: -35
   mouseYMaxAngle: 35

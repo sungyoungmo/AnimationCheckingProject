@@ -15,6 +15,14 @@ public class PlayerDodgeState : PlayerBaseState
     {
         _player.charMove.anim.SetTrigger(_player.charMove.SpaceBar);
         _player.charMove.anim.SetBool(_player.charMove.IsDodge, true);
+
+        if (_player.charMove.xyMoveRaw.sqrMagnitude == 0)
+        {
+            _player.charMove.anim.SetFloat(_player.charMove.YdirRaw, 1);
+            _player.charMove.anim.SetFloat(_player.charMove.XdirRaw, 0);
+        }
+
+
         dodgeTime = 1;
     }
 

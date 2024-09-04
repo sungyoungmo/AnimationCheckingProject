@@ -1,0 +1,11 @@
+Iattackable, Ihittable
+
+포탑: Ia, Ih
+
+기차(진입불가하게 하는 벽): Ih
+
+미니언(크립 몬스터): Ia, Ih
+
+중립 몬스터: Ia, Ih
+
+플레이어: Ia, Ih

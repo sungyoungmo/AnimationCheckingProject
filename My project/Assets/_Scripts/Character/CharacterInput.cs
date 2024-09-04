@@ -72,6 +72,8 @@ public class CharacterInput : MonoBehaviourPun, IPunObservable
 
     public void DodgeDirectionCheck()
     {
+        if (!photonView.IsMine) return;
+
         xyMoveRaw.x = Input.GetAxisRaw("Horizontal");
         xyMoveRaw.y = Input.GetAxisRaw("Vertical");
 
@@ -98,6 +100,8 @@ public class CharacterInput : MonoBehaviourPun, IPunObservable
 
     public void InputCheck()
     {
+        if (!photonView.IsMine) return;
+
         if (!_isMove && !_isAttack &&
             (
             Input.GetKey(KeyCode.W) ||

@@ -37,13 +37,7 @@ public class PlayerDodgeState : PlayerBaseState
 
         _player.charMove.SetAnimState();
 
-        if (_player.charMove.animStateInfo.IsName("RollTree"))
-        {
-            Debug.Log(1);
-            dodgeTime -= Time.deltaTime;
-        }
-
-        if (dodgeTime < 0)
+        if (_player.charMove.animStateInfo.IsName("Idle") && _player.charMove.animStateInfo.normalizedTime >= 0.05f)
         {
             _player.TransitionToState(_player.idleState);
         }

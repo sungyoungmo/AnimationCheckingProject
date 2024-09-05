@@ -24,12 +24,11 @@ public class PlayerSkillState : PlayerBaseState
         switch (input)
         {
             case KeyCode.Mouse0:
-                _player.charMove.anim.SetTrigger(_player.charMove.LeftMouse);
+                _player.charMove.Skill_Common_Attack();
                 break;
 
             case KeyCode.Mouse1:
                 _player.charMove.anim.SetTrigger(_player.charMove.RightMouse);
-                //battleTime = 3f;
                 break;
 
             case KeyCode.F:
@@ -42,7 +41,7 @@ public class PlayerSkillState : PlayerBaseState
     public override void OnStateExit()
     {
         _player.charMove.SetIsAttackOn(false);
-        _player.charMove.anim.SetBool(_player.charMove.IsDodge, false);
+        //_player.charMove.anim.SetBool(_player.charMove.IsDodge, false);
     }
 
     public override void OnStateUpdate()
@@ -51,16 +50,22 @@ public class PlayerSkillState : PlayerBaseState
 
         if (_player.charMove.animStateInfo.IsName("Idle") && _player.charMove.animStateInfo.normalizedTime >= 0.05f)
         {
+            _player.charMove.anim.ResetTrigger(_player.charMove.LeftMouse);
             _player.TransitionToState(_player.idleState);
         }
 
         _player.charMove.DodgeDirectionCheck();
 
-
         if (Input.GetKeyDown(KeyCode.Mouse0))
         {
-            _player.charMove.anim.SetTrigger(_player.charMove.LeftMouse);
-
+            if (_player.charMove.animStateInfo.IsTag("Attack StateMachine") && _player.charMove.animStateInfo.normalizedTime >= 0.1)
+            {
+                _player.charMove.Skill_Common_Attack();
+            }
+            else
+            {
+                return;
+            }
         }
 
         _player.charMove.InputCheck();

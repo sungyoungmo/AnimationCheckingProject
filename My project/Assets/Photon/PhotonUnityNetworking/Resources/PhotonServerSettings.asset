@@ -36,6 +36,10 @@ MonoBehaviour:
   RpcList:
   - ClickRpc
   - DestroyRpc
+  - LeftAttack_RPC
+  - EnterSkillState_RPC
+  - Skill_Common_Attack_RPC
+  - EnterState_RPC
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

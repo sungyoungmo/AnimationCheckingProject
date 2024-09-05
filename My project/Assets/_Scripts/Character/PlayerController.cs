@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class PlayerController : MonoBehaviour, Ihittable, Iattackable
 {
     #region States
@@ -11,11 +12,12 @@ public class PlayerController : MonoBehaviour, Ihittable, Iattackable
     public PlayerSkillState skillState { get; private set; }
     public PlayerDodgeState dodgeState { get; private set; }
     public PlayerHitState hitState { get; private set; }
+    
     #endregion
 
     public CharacterInput charMove;
     public PlayerStatus status;
-
+    
 
     private void Awake()
     {
@@ -44,8 +46,6 @@ public class PlayerController : MonoBehaviour, Ihittable, Iattackable
     private void FixedUpdate()
     {
         currentState.OnStateFixedUpdate();
-
-        
     }
 
 

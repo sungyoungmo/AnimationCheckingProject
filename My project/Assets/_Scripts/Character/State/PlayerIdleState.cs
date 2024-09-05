@@ -24,7 +24,7 @@ public class PlayerIdleState : PlayerBaseState
     {
         _player.charMove.MouseMove();
 
-        //
+        _player.charMove.AttackCheck();
 
         _player.charMove.InputCheck();
     }

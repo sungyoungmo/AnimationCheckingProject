@@ -8,7 +8,6 @@ public class PlayerMoveState : PlayerBaseState
     {
 
     }
-    KeyCode[] skillKeys = { KeyCode.Mouse0, KeyCode.Mouse1, KeyCode.F };
 
     public override void OnStateEnter()
     {
@@ -19,9 +18,6 @@ public class PlayerMoveState : PlayerBaseState
     {
         _player.charMove.SetIsMoveOn(false);
 
-        //_player.charMove.xyMove = new Vector3(0, 0, 0);
-        //_player.charMove.anim.SetFloat(_player.charMove.Xdir, 0);
-        //_player.charMove.anim.SetFloat(_player.charMove.Ydir, 0);
     }
 
     public override void OnStateUpdate()
@@ -29,6 +25,8 @@ public class PlayerMoveState : PlayerBaseState
         _player.charMove.MouseMove();
 
         _player.charMove.DodgeDirectionCheck();
+
+        _player.charMove.AttackCheck();
 
         _player.charMove.InputCheck();
 

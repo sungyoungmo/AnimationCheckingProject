@@ -808,6 +808,7 @@ MonoBehaviour:
   xyMove: {x: 0, y: 0}
   xyMoveRaw: {x: 0, y: 0}
   anim: {fileID: 5697223032172839505}
+  playerController: {fileID: 1354468109032749845}
   mouseYMinAngle: -35
   mouseYMaxAngle: 35
   cameraTransform: {fileID: 20464462215967901}
@@ -815,6 +816,7 @@ MonoBehaviour:
   mouseSensitivity: 3
   _isMove: 0
   _isAttack: 0
+  _isDodge: 0
 --- !u!114 &2604866517477277458
 MonoBehaviour:
   m_ObjectHideFlags: 0

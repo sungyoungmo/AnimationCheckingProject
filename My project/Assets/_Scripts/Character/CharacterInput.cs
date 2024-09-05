@@ -19,12 +19,13 @@ public class CharacterInput : MonoBehaviourPun, IPunObservable
     KeyCode[] skillKeys = { KeyCode.Mouse0, KeyCode.Mouse1, KeyCode.F };
 
     public AnimatorStateInfo animStateInfo;
+    
 
     public Vector2 xyMove = new Vector2();
     public Vector2 xyMoveRaw = new Vector2();
 
     public Animator anim;
-    PlayerController playerController;
+    public PlayerController playerController;
 
     public float mouseYMinAngle = -35f;
     public float mouseYMaxAngle = 35f;
@@ -51,7 +52,7 @@ public class CharacterInput : MonoBehaviourPun, IPunObservable
         Cursor.lockState = CursorLockMode.Locked;
 
         //anim = GetComponent<Animator>();
-        playerController = GetComponent<PlayerController>();
+        //playerController = GetComponent<PlayerController>();
     }
     private void Start()
     {
@@ -99,6 +100,22 @@ public class CharacterInput : MonoBehaviourPun, IPunObservable
         cameraTransform.transform.LookAt(lookingSpot.position);
     }
 
+    public void AttackCheck()
+    {
+        if (!photonView.IsMine) return;
+
+        foreach (var keyInput in skillKeys)
+        {
+            if (!_isAttack && Input.GetKeyDown(keyInput))
+            {
+                //playerController.TransitionToState(playerController.skillState,keyInput);
+                EnterSkillState(keyInput);
+
+                break;
+            }
+        }
+    }
+
     public void InputCheck()
     {
         if (!photonView.IsMine) return;
@@ -123,18 +140,25 @@ public class CharacterInput : MonoBehaviourPun, IPunObservable
             playerController.TransitionToState(playerController.idleState);
         }
 
-        foreach (var keyInput in skillKeys)
-        {
-            if (Input.GetKeyDown(keyInput))
-            {
-                playerController.TransitionToState(playerController.skillState,keyInput);
-                break;
-            }
-        }
+        
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
             playerController.TransitionToState(playerController.dodgeState);
+        }
+
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            if (Cursor.visible)
+            {
+                Cursor.visible = false;
+                Cursor.lockState = CursorLockMode.Locked;
+            }
+            else
+            {
+                Cursor.visible = true;
+                Cursor.lockState = CursorLockMode.None;
+            }
         }
     }
 
@@ -164,6 +188,46 @@ public class CharacterInput : MonoBehaviourPun, IPunObservable
     #endregion
 
 
+    #region Skill State로 변경하는 RPC
+
+    public void EnterSkillState(KeyCode keyInput)
+    {
+        photonView.RPC("EnterSkillState_RPC", RpcTarget.All, (int)keyInput);
+    }
+
+    [PunRPC]
+    public void EnterSkillState_RPC(int keyInput)
+    {
+        playerController.TransitionToState(playerController.skillState, (KeyCode)keyInput);
+    }
+
+    #endregion
+
+
+    #region 기본 공격
+
+    public void Skill_Common_Attack()
+    {
+        if (!photonView.IsMine) return;
+        if (!_isAttack) return;
+
+        photonView.RPC("Skill_Common_Attack_RPC", RpcTarget.All);
+    }
+
+    [PunRPC]
+    public void Skill_Common_Attack_RPC(PhotonMessageInfo info)
+    {
+        Debug.Log($"서버타임 : {info.SentServerTime}, 타임 {PhotonNetwork.Time}");
+
+        anim.ResetTrigger(LeftMouse);
+        anim.SetTrigger(LeftMouse);
+    }
+    #endregion
+
+
+
+
+    
 
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {
@@ -181,6 +245,7 @@ public class CharacterInput : MonoBehaviourPun, IPunObservable
             _isAttack = (bool)stream.ReceiveNext();
             _isDodge = (bool)stream.ReceiveNext();
 
+
             // 애니메이션 동기화
             anim.SetBool(IsMove, _isMove);
             anim.SetBool(IsAttack, _isAttack);
@@ -188,3 +253,4 @@ public class CharacterInput : MonoBehaviourPun, IPunObservable
         }
     }
 }
+

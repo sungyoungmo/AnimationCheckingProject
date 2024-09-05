@@ -39,6 +39,7 @@ public class CharacterInput : MonoBehaviourPun, IPunObservable
 
     public bool _isMove;
     public bool _isAttack;
+    public bool _isDodge;
 
     private void Awake()
     {
@@ -49,7 +50,7 @@ public class CharacterInput : MonoBehaviourPun, IPunObservable
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
 
-        anim = GetComponent<Animator>();
+        //anim = GetComponent<Animator>();
         playerController = GetComponent<PlayerController>();
     }
     private void Start()
@@ -142,6 +143,7 @@ public class CharacterInput : MonoBehaviourPun, IPunObservable
         animStateInfo = anim.GetCurrentAnimatorStateInfo(0);
     }
 
+    #region SetStateOn
     public void SetIsMoveOn(bool nowMove)
     {
         _isMove = nowMove;
@@ -154,9 +156,35 @@ public class CharacterInput : MonoBehaviourPun, IPunObservable
         anim.SetBool(IsAttack, nowAttack);
     }
 
+    public void SetIsDodgeOn(bool nowDodge)
+    {
+        _isDodge = nowDodge;
+        anim.SetBool(IsDodge, nowDodge);
+    }
+    #endregion
+
+
 
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {
+        if (stream.IsWriting)
+        {
+            // 자신의 상태를 전송
+            stream.SendNext(_isMove);
+            stream.SendNext(_isAttack);
+            stream.SendNext(_isDodge);
+        }
+        else
+        {
+            // 다른 플레이어의 상태를 수신
+            _isMove = (bool)stream.ReceiveNext();
+            _isAttack = (bool)stream.ReceiveNext();
+            _isDodge = (bool)stream.ReceiveNext();
 
+            // 애니메이션 동기화
+            anim.SetBool(IsMove, _isMove);
+            anim.SetBool(IsAttack, _isAttack);
+            anim.SetBool(IsDodge, _isDodge);
+        }
     }
 }

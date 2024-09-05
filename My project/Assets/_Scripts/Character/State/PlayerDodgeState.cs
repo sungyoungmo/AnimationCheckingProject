@@ -15,6 +15,9 @@ public class PlayerDodgeState : PlayerBaseState
     public override void OnStateEnter()
     {
         _player.charMove.anim.SetTrigger(_player.charMove.SpaceBar);
+
+        _player.charMove.SetIsDodgeOn(true);
+
         _player.charMove.anim.SetBool(_player.charMove.IsDodge, true);
 
         if (_player.charMove.xyMoveRaw.sqrMagnitude == 0)
@@ -29,6 +32,7 @@ public class PlayerDodgeState : PlayerBaseState
 
     public override void OnStateExit()
     {
+        _player.charMove.SetIsDodgeOn(false);
         _player.charMove.anim.SetBool(_player.charMove.IsDodge, false);
     }
 

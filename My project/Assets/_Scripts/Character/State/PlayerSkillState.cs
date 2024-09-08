@@ -58,13 +58,12 @@ public class PlayerSkillState : PlayerBaseState
 
         if (Input.GetKeyDown(KeyCode.Mouse0))
         {
-            if (_player.charMove.animStateInfo.IsTag("Attack StateMachine") && _player.charMove.animStateInfo.normalizedTime >= 0.1)
+
+            Debug.Log("clicked");
+            if (_player.charMove._isAttack && _player.charMove.animStateInfo.IsTag("Attack StateMachine") && _player.charMove.animStateInfo.normalizedTime >= 0.1)
             {
+                Debug.Log("Attack");
                 _player.charMove.Skill_Common_Attack();
-            }
-            else
-            {
-                return;
             }
         }
 

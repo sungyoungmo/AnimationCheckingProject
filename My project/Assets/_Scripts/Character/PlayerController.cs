@@ -52,6 +52,9 @@ public class PlayerController : MonoBehaviour, Ihittable, Iattackable
     #region TransitionToState 함수
     public void TransitionToState(PlayerBaseState newState)
     {
+        //Debug.Log($"현재 상태: {currentState}, 새로운 상태: {newState}");
+
+
         currentState.OnStateExit();
         currentState = newState;
         currentState.OnStateEnter();

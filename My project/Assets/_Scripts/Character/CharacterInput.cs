@@ -192,6 +192,9 @@ public class CharacterInput : MonoBehaviourPun, IPunObservable
 
     public void EnterSkillState(KeyCode keyInput)
     {
+        if (playerController.currentState == playerController.skillState)
+            return;
+
         photonView.RPC("EnterSkillState_RPC", RpcTarget.All, (int)keyInput);
     }
 
@@ -209,15 +212,33 @@ public class CharacterInput : MonoBehaviourPun, IPunObservable
     public void Skill_Common_Attack()
     {
         if (!photonView.IsMine) return;
-        if (!_isAttack) return;
 
-        photonView.RPC("Skill_Common_Attack_RPC", RpcTarget.All);
+        if (!_isAttack)
+        {
+            Debug.LogError("_isAttack is false");
+            return;
+        }
+
+        photonView.RPC("Skill_Common_Attack_RPC", RpcTarget.All, photonView.ViewID);
     }
 
     [PunRPC]
-    public void Skill_Common_Attack_RPC(PhotonMessageInfo info)
+    public void Skill_Common_Attack_RPC(int attackerViewID)
     {
-        Debug.Log($"서버타임 : {info.SentServerTime}, 타임 {PhotonNetwork.Time}");
+        if (photonView.ViewID != attackerViewID) return;
+
+        SetAnimState();
+
+        //Debug.Log($"서버타임 : {info.SentServerTime}, 타임 {PhotonNetwork.Time}");
+
+        if (animStateInfo.IsName("Idle") || animStateInfo.IsTag("Move") || animStateInfo.IsTag("Attack StateMachine"))
+        {
+            Debug.Log($"Idle: {animStateInfo.IsName("Idle")} Move: {animStateInfo.IsTag("Move")} Attack: {animStateInfo.IsTag("Attack StateMachine")}");
+        }
+        else
+        {
+            Debug.Log(1);
+        }
 
         anim.ResetTrigger(LeftMouse);
         anim.SetTrigger(LeftMouse);

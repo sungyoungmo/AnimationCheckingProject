@@ -109,8 +109,8 @@ public class CharacterInput : MonoBehaviourPun, IPunObservable
             if (!_isAttack && Input.GetKeyDown(keyInput))
             {
                 //playerController.TransitionToState(playerController.skillState,keyInput);
-                EnterSkillState(keyInput);
-
+                //EnterSkillState(keyInput);
+                Skill_Common_Attack(keyInput);
                 break;
             }
         }
@@ -195,7 +195,7 @@ public class CharacterInput : MonoBehaviourPun, IPunObservable
         if (playerController.currentState == playerController.skillState)
             return;
 
-        photonView.RPC("EnterSkillState_RPC", RpcTarget.All, (int)keyInput);
+        photonView.RPC("EnterSkillState_RPC", RpcTarget.AllBuffered, (int)keyInput);
     }
 
     [PunRPC]
@@ -206,42 +206,49 @@ public class CharacterInput : MonoBehaviourPun, IPunObservable
 
     #endregion
 
-
-    #region 기본 공격
-
-    public void Skill_Common_Attack()
+    public void TestRPC()
     {
         if (!photonView.IsMine) return;
 
-        if (!_isAttack)
-        {
-            Debug.LogError("_isAttack is false");
-            return;
-        }
+        photonView.RPC("TestRPC_RPC", RpcTarget.All);
+    }
+    [PunRPC]
+    public void TestRPC_RPC()
+    {
+        Debug.Log("anim started");
+        //anim.ResetTrigger(LeftMouse);
+    }
 
-        photonView.RPC("Skill_Common_Attack_RPC", RpcTarget.All, photonView.ViewID);
+
+
+    #region 기본 공격
+
+    public void Skill_Common_Attack(KeyCode keyInput)
+    {
+        if (!photonView.IsMine) return;
+
+        photonView.RPC("Skill_Common_Attack_RPC", RpcTarget.All, photonView.ViewID, (int)keyInput);
     }
 
     [PunRPC]
-    public void Skill_Common_Attack_RPC(int attackerViewID)
+    public void Skill_Common_Attack_RPC(int attackerViewID, int keyInput)
     {
         if (photonView.ViewID != attackerViewID) return;
 
         SetAnimState();
 
-        //Debug.Log($"서버타임 : {info.SentServerTime}, 타임 {PhotonNetwork.Time}");
-
-        if (animStateInfo.IsName("Idle") || animStateInfo.IsTag("Move") || animStateInfo.IsTag("Attack StateMachine"))
+        // 현재 공격 애니메이션이 실행 중인지 체크
+        if (anim.GetCurrentAnimatorStateInfo(0).IsTag("Attack StateMachine") && _isAttack)
         {
-            Debug.Log($"Idle: {animStateInfo.IsName("Idle")} Move: {animStateInfo.IsTag("Move")} Attack: {animStateInfo.IsTag("Attack StateMachine")}");
+            // 공격 애니메이션 실행 중일 경우, 다음 공격 트리거
+            anim.SetTrigger(LeftMouse);
         }
-        else
+        else if(!_isAttack && !anim.GetCurrentAnimatorStateInfo(0).IsTag("Attack StateMachine"))
         {
-            Debug.Log(1);
+            // 공격 애니메이션이 진행 중이 아닐 경우, 공격 시작
+            playerController.TransitionToState(playerController.skillState, (KeyCode)keyInput);
+            anim.SetTrigger(LeftMouse);
         }
-
-        anim.ResetTrigger(LeftMouse);
-        anim.SetTrigger(LeftMouse);
     }
     #endregion
 
@@ -254,24 +261,19 @@ public class CharacterInput : MonoBehaviourPun, IPunObservable
     {
         if (stream.IsWriting)
         {
-            // 자신의 상태를 전송
-            stream.SendNext(_isMove);
             stream.SendNext(_isAttack);
-            stream.SendNext(_isDodge);
+            stream.SendNext(anim.GetCurrentAnimatorStateInfo(0).fullPathHash);
         }
         else
         {
-            // 다른 플레이어의 상태를 수신
-            _isMove = (bool)stream.ReceiveNext();
             _isAttack = (bool)stream.ReceiveNext();
-            _isDodge = (bool)stream.ReceiveNext();
+            int pathHash = (int)stream.ReceiveNext();
 
 
-            // 애니메이션 동기화
-            anim.SetBool(IsMove, _isMove);
-            anim.SetBool(IsAttack, _isAttack);
-            anim.SetBool(IsDodge, _isDodge);
+            if (pathHash != anim.GetCurrentAnimatorStateInfo(0).fullPathHash)
+            {
+                anim.SetTrigger(LeftMouse); // 트리거를 설정하여 애니메이션을 재생
+            }
         }
     }
 }
-

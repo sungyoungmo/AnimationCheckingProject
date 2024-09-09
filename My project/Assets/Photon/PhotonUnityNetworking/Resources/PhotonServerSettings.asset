@@ -40,6 +40,7 @@ MonoBehaviour:
   - EnterSkillState_RPC
   - Skill_Common_Attack_RPC
   - EnterState_RPC
+  - TestRPC_RPC
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

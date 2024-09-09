@@ -24,7 +24,8 @@ public class PlayerSkillState : PlayerBaseState
         switch (input)
         {
             case KeyCode.Mouse0:
-                _player.charMove.Skill_Common_Attack();
+                _player.charMove.Skill_Common_Attack(input);
+                //_player.charMove.anim.SetTrigger(_player.charMove.LeftMouse);
                 break;
 
             case KeyCode.Mouse1:
@@ -52,18 +53,20 @@ public class PlayerSkillState : PlayerBaseState
         {
             _player.charMove.anim.ResetTrigger(_player.charMove.LeftMouse);
             _player.TransitionToState(_player.idleState);
+            return;
         }
 
         _player.charMove.DodgeDirectionCheck();
 
-        if (Input.GetKeyDown(KeyCode.Mouse0))
+        if (Input.GetKeyDown(KeyCode.Mouse0) && _player.charMove.animStateInfo.normalizedTime <= 0.6f)
         {
 
             Debug.Log("clicked");
             if (_player.charMove._isAttack && _player.charMove.animStateInfo.IsTag("Attack StateMachine") && _player.charMove.animStateInfo.normalizedTime >= 0.1)
             {
                 Debug.Log("Attack");
-                _player.charMove.Skill_Common_Attack();
+                _player.charMove.Skill_Common_Attack(KeyCode.Mouse0);
+                //_player.charMove.anim.SetTrigger(_player.charMove.LeftMouse);
             }
         }
 

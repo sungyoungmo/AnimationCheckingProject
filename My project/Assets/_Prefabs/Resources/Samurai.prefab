@@ -897,10 +897,10 @@ MonoBehaviour:
     SynchronizeType: 1
     Name: LeftMouse
   - Type: 9
-    SynchronizeType: 0
+    SynchronizeType: 1
     Name: RightMouse
   - Type: 4
-    SynchronizeType: 0
+    SynchronizeType: 1
     Name: IsAttack
   - Type: 9
     SynchronizeType: 1

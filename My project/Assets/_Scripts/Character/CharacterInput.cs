@@ -1,7 +1,9 @@
 using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class CharacterInput : MonoBehaviourPun, IPunObservable
 {
@@ -19,7 +21,7 @@ public class CharacterInput : MonoBehaviourPun, IPunObservable
     KeyCode[] skillKeys = { KeyCode.Mouse0, KeyCode.Mouse1, KeyCode.F };
 
     public AnimatorStateInfo animStateInfo;
-    
+
 
     public Vector2 xyMove = new Vector2();
     public Vector2 xyMoveRaw = new Vector2();
@@ -47,7 +49,7 @@ public class CharacterInput : MonoBehaviourPun, IPunObservable
         if (!photonView.IsMine) return;
 
         cameraTransform.gameObject.SetActive(true);
-
+        
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
 
@@ -108,9 +110,10 @@ public class CharacterInput : MonoBehaviourPun, IPunObservable
         {
             if (!_isAttack && Input.GetKeyDown(keyInput))
             {
-                //playerController.TransitionToState(playerController.skillState,keyInput);
+                
+                playerController.TransitionToState(playerController.skillState,keyInput);
                 //EnterSkillState(keyInput);
-                Skill_Common_Attack(keyInput);
+                //Skill_Common_Attack(keyInput);
                 break;
             }
         }
@@ -127,7 +130,8 @@ public class CharacterInput : MonoBehaviourPun, IPunObservable
             Input.GetKey(KeyCode.S) ||
             Input.GetKey(KeyCode.D)))
         {
-            playerController.TransitionToState(playerController.moveState);
+            //playerController.TransitionToState(playerController.moveState);
+            TransitionToState_Call("Move");
         }
         else if 
             (_isMove && !_isAttack &&
@@ -137,14 +141,16 @@ public class CharacterInput : MonoBehaviourPun, IPunObservable
             Input.GetKey(KeyCode.S) ||
             Input.GetKey(KeyCode.D)))
         {
-            playerController.TransitionToState(playerController.idleState);
+            //playerController.TransitionToState(playerController.idleState);
+            TransitionToState_Call("Idle");
         }
 
         
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            playerController.TransitionToState(playerController.dodgeState);
+            //playerController.TransitionToState(playerController.dodgeState);
+            TransitionToState_Call("Dodge");
         }
 
         if (Input.GetKeyDown(KeyCode.Escape))
@@ -185,95 +191,99 @@ public class CharacterInput : MonoBehaviourPun, IPunObservable
         _isDodge = nowDodge;
         anim.SetBool(IsDodge, nowDodge);
     }
-    #endregion
-
-
-    #region Skill State로 변경하는 RPC
-
-    public void EnterSkillState(KeyCode keyInput)
-    {
-        if (playerController.currentState == playerController.skillState)
-            return;
-
-        photonView.RPC("EnterSkillState_RPC", RpcTarget.AllBuffered, (int)keyInput);
-    }
-
-    [PunRPC]
-    public void EnterSkillState_RPC(int keyInput)
-    {
-        playerController.TransitionToState(playerController.skillState, (KeyCode)keyInput);
-    }
 
     #endregion
 
-    public void TestRPC()
+
+    #region 상태 변경 RPC
+
+    public void TransitionToState_Call(string newState)
     {
         if (!photonView.IsMine) return;
-
-        photonView.RPC("TestRPC_RPC", RpcTarget.All);
+        photonView.RPC("TransitionToState_Call_RPC", RpcTarget.AllBuffered, newState);
     }
+
     [PunRPC]
-    public void TestRPC_RPC()
+    public void TransitionToState_Call_RPC(string newState)
     {
-        Debug.Log("anim started");
-        //anim.ResetTrigger(LeftMouse);
+        anim.ResetTrigger(LeftMouse);
+        anim.ResetTrigger(RightMouse);
+
+        switch (newState)
+        {
+            case "Idle":
+                playerController.TransitionToState(playerController.idleState);
+                break;
+
+            case "Move":
+                playerController.TransitionToState(playerController.moveState);
+                break;
+
+            case "Skill":
+                playerController.TransitionToState(playerController.skillState);
+                break;
+
+            case "Dodge":
+                playerController.TransitionToState(playerController.dodgeState);
+                break;
+
+            case "Hit":
+                playerController.TransitionToState(playerController.hitState);
+                break;
+        }
     }
 
-
+    #endregion
 
     #region 기본 공격
 
-    public void Skill_Common_Attack(KeyCode keyInput)
+    public void Skill_Common_Attack()
     {
         if (!photonView.IsMine) return;
-
-        photonView.RPC("Skill_Common_Attack_RPC", RpcTarget.All, photonView.ViewID, (int)keyInput);
+        photonView.RPC("Skill_Common_Attack_RPC", RpcTarget.AllBuffered, photonView.ViewID);
     }
 
     [PunRPC]
-    public void Skill_Common_Attack_RPC(int attackerViewID, int keyInput)
+    public void Skill_Common_Attack_RPC(int attackerViewID)
+    {
+        if (photonView.ViewID != attackerViewID) return;
+        anim.SetTrigger(LeftMouse);
+    }
+    #endregion
+
+    #region 스킬 공격
+    public void Skill_Right_Attack()
+    {
+        if (!photonView.IsMine) return;
+
+        photonView.RPC("Skill_Right_Attack_RPC", RpcTarget.AllBuffered, photonView.ViewID);
+    }
+
+    [PunRPC]
+    public void Skill_Right_Attack_RPC(int attackerViewID)
     {
         if (photonView.ViewID != attackerViewID) return;
 
-        SetAnimState();
 
-        // 현재 공격 애니메이션이 실행 중인지 체크
-        if (anim.GetCurrentAnimatorStateInfo(0).IsTag("Attack StateMachine") && _isAttack)
-        {
-            // 공격 애니메이션 실행 중일 경우, 다음 공격 트리거
-            anim.SetTrigger(LeftMouse);
-        }
-        else if(!_isAttack && !anim.GetCurrentAnimatorStateInfo(0).IsTag("Attack StateMachine"))
-        {
-            // 공격 애니메이션이 진행 중이 아닐 경우, 공격 시작
-            playerController.TransitionToState(playerController.skillState, (KeyCode)keyInput);
-            anim.SetTrigger(LeftMouse);
-        }
+        anim.SetTrigger(RightMouse);
     }
+
     #endregion
 
 
 
-
-    
 
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {
         if (stream.IsWriting)
         {
             stream.SendNext(_isAttack);
-            stream.SendNext(anim.GetCurrentAnimatorStateInfo(0).fullPathHash);
         }
         else
         {
-            _isAttack = (bool)stream.ReceiveNext();
-            int pathHash = (int)stream.ReceiveNext();
+            bool isOnAttack = (bool)stream.ReceiveNext();
 
-
-            if (pathHash != anim.GetCurrentAnimatorStateInfo(0).fullPathHash)
-            {
-                anim.SetTrigger(LeftMouse); // 트리거를 설정하여 애니메이션을 재생
-            }
+            anim.SetBool(IsAttack, isOnAttack);
         }
     }
 }

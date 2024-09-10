@@ -23,7 +23,7 @@ public class PhotonTest : MonoBehaviourPunCallbacks
     {
         if (PhotonNetwork.NetworkClientState != photonState)
         {
-            print($"{photonState} 에서 {PhotonNetwork.NetworkClientState}으로 변경됨");
+            //print($"{photonState} 에서 {PhotonNetwork.NetworkClientState}으로 변경됨");
             photonState = PhotonNetwork.NetworkClientState;
         }
     }

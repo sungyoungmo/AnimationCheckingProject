@@ -1,9 +1,7 @@
-using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
-using System.Text;
 using UnityEngine;
-using UnityEngine.UI;
+using Photon.Pun;
 
 public class CharacterInput : MonoBehaviourPun, IPunObservable
 {
@@ -17,6 +15,7 @@ public class CharacterInput : MonoBehaviourPun, IPunObservable
     public readonly int IsDodge = Animator.StringToHash("IsDodge");
     public readonly int XdirRaw = Animator.StringToHash("XdirRaw");
     public readonly int YdirRaw = Animator.StringToHash("YdirRaw");
+    public readonly int Hit = Animator.StringToHash("Hit");
 
     KeyCode[] skillKeys = { KeyCode.Mouse0, KeyCode.Mouse1, KeyCode.F };
 
@@ -44,6 +43,8 @@ public class CharacterInput : MonoBehaviourPun, IPunObservable
     public bool _isAttack;
     public bool _isDodge;
 
+    public bool _damageImmune;
+
     private void Awake()
     {
         if (!photonView.IsMine) return;
@@ -53,6 +54,8 @@ public class CharacterInput : MonoBehaviourPun, IPunObservable
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
 
+
+        // 직접 인스페터에서 할당 해놨음
         //anim = GetComponent<Animator>();
         //playerController = GetComponent<PlayerController>();
     }
@@ -110,10 +113,7 @@ public class CharacterInput : MonoBehaviourPun, IPunObservable
         {
             if (!_isAttack && Input.GetKeyDown(keyInput))
             {
-                
                 playerController.TransitionToState(playerController.skillState,keyInput);
-                //EnterSkillState(keyInput);
-                //Skill_Common_Attack(keyInput);
                 break;
             }
         }

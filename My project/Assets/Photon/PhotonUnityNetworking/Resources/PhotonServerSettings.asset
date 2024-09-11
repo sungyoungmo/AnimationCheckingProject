@@ -43,6 +43,9 @@ MonoBehaviour:
   - TestRPC_RPC
   - Skill_Right_Attack_RPC
   - TransitionToState_Call_RPC
+  - Hit
+  - Hit_RPC
+  - Hit_Set_DamageImmune
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

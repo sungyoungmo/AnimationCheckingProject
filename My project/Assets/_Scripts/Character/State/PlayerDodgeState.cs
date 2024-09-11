@@ -41,9 +41,10 @@ public class PlayerDodgeState : PlayerBaseState
 
         _player.charMove.SetAnimState();
 
-        if (_player.charMove.animStateInfo.IsName("Idle") && _player.charMove.animStateInfo.normalizedTime >= 0.05f)
+        if (_player.charMove.animStateInfo.IsTag("Roll") && _player.charMove.animStateInfo.normalizedTime >= 0.85f)
         {
-            _player.TransitionToState(_player.idleState);
+            _player.charMove.TransitionToState_Call("Idle");
+            //_player.TransitionToState(_player.idleState);
         }
     }
 

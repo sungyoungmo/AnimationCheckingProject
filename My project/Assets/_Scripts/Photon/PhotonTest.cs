@@ -15,8 +15,6 @@ public class PhotonTest : MonoBehaviourPunCallbacks
         Screen.SetResolution(1960, 1080, true);
         PhotonNetwork.ConnectUsingSettings();
         
-
-
     }
 
     private void Update()
@@ -47,7 +45,7 @@ public class PhotonTest : MonoBehaviourPunCallbacks
         string a = "Paladine";
         string b = "Samurai";
 
-        GameObject player = PhotonNetwork.Instantiate(a,new Vector3(0,0,0), Quaternion.identity);
+        GameObject player = PhotonNetwork.Instantiate(a, new Vector3(0, 0, 0), Quaternion.identity);
         BuffManager.instance.AddPlayerList(player.GetComponent<PlayerStatus>());
     }
 }

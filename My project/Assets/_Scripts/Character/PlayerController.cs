@@ -1,9 +1,10 @@
+using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 
-public class PlayerController : MonoBehaviour, Ihittable, Iattackable
+public class PlayerController : MonoBehaviourPun, Ihittable, Iattackable, IPunObservable
 {
     #region States
     public PlayerBaseState currentState { get; private set; }
@@ -70,23 +71,62 @@ public class PlayerController : MonoBehaviour, Ihittable, Iattackable
 
     #region Hit and Attack 함수
 
-    public void Hit(int damage)
+    public void Hit_Call(int damage, Iattackable attackPlayer)
     {
+        status.currentHp -= damage;
 
+        photonView.RPC("Hit_RPC", RpcTarget.Others, damage,attackPlayer.GetTransform().position);
     }
-    public void Hit(int damage, Iattackable attackPlayer)
+
+    [PunRPC]
+    public void Hit_RPC(int damage, Vector3 attackPlayerPosition)
     {
-        Transform attackPlayerTransform = attackPlayer.GetTransform();
+        charMove.TransitionToState_Call("Hit");
 
-        transform.LookAt(attackPlayerTransform);
+        transform.LookAt(attackPlayerPosition);
+
+        photonView.RPC("Hit_Set_DamageImmune", RpcTarget.All, true);
     }
+
+    [PunRPC]
+    public void Hit_Set_DamageImmune(bool isImmune)
+    {
+        charMove._damageImmune = isImmune;
+
+        if (isImmune)
+        {
+            StartCoroutine(HitImmuneCoroutine());
+        }
+    }
+
+    IEnumerator HitImmuneCoroutine()
+    {
+        yield return new WaitForSeconds(0.2f);
+        photonView.RPC("Hit_Set_DamageImmune", RpcTarget.All, false);
+    }
+
 
     public Transform GetTransform()
     {
         return this.transform;
     }
-    #endregion
 
     
+    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    {
+        // 여기서는 스탯을 업데이트할건데
+        // 최대체력이나 Root 관련은 RPC를 통해 레벨업시킬 때 호출
+
+        if (stream.IsWriting)
+        {
+            stream.SendNext(status.currentHp);
+        }
+        else
+        {
+            status.currentHp = (int)stream.ReceiveNext();
+        }
+    }
+
+    #endregion
 
 }

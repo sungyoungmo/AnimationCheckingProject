@@ -11,7 +11,7 @@ public class PlayerHitState : PlayerBaseState
 
     public override void OnStateEnter()
     {
-        
+        _player.charMove.anim.SetTrigger(_player.charMove.Hit);
     }
 
     public override void OnStateExit()

@@ -12,6 +12,11 @@ public class PlayerStatus : MonoBehaviour
 {
     public PlayerStatus()
     {
+        
+    }
+
+    private void Awake()
+    {
         lastAtk = rootAtk;
         lastAtk_spd = atk_spd;
         lastSpd = rootSpd;
@@ -19,8 +24,10 @@ public class PlayerStatus : MonoBehaviour
         currentHp = maxHp;
     }
 
+    //  / 100 하고 있는데 굳이 해야하나
+
     public int rootAtk; // 버프 적용 전, 스텟 업그레이드를 통해 변하는 공격력   / 100
-    public int lastAtk; // 버프 적용 후, 최종적으로 계산된 실제 공격력        /100
+    public int lastAtk; // 버프 적용 후, 최종적으로 계산된 실제 공격력        / 100
 
     public float atk_spd;   // 공격 속도(애니메이션에 입혀 공격 속도 조정)
     public float lastAtk_spd;   // 버프 적용 후, 최종적으로 계산된 실제 공격 속도

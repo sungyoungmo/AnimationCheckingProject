@@ -39,7 +39,6 @@ public class PlayerSkillState : PlayerBaseState
 
                 break;
         }
-
     }
 
     public override void OnStateExit()
@@ -61,16 +60,27 @@ public class PlayerSkillState : PlayerBaseState
             _player.charMove.anim.ResetTrigger(_player.charMove.LeftMouse);
         }
 
-        if (_player.charMove.animStateInfo.IsName("Idle") && _player.charMove.animStateInfo.normalizedTime >= 0.05f)
+        if ((_player.charMove.animStateInfo.IsTag("Attack StateMachine") ||
+            _player.charMove.animStateInfo.IsName("Skill_RightMouse"))
+            && 
+            _player.charMove.animStateInfo.normalizedTime >= 0.98f)
         {
             _player.charMove.TransitionToState_Call("Idle");
+            //_player.TransitionToState(_player.idleState);
+
+            if (_player.charMove.anim.GetBool(_player.charMove.LeftMouse))
+            {
+                _player.charMove.anim.ResetTrigger(_player.charMove.LeftMouse);
+            }
+
         }
 
         _player.charMove.DodgeDirectionCheck();
 
 
         if (Input.GetKeyDown(KeyCode.Mouse0) && 
-            (_player.charMove.animStateInfo.IsTag("Attack StateMachine") && _player.charMove.animStateInfo.normalizedTime <= 0.55f))
+            (_player.charMove.animStateInfo.IsTag("Attack StateMachine") && 
+            _player.charMove.animStateInfo.normalizedTime <= 0.45f))
         {
             if (_player.charMove.anim.GetBool(_player.charMove.IsAttack))
             {

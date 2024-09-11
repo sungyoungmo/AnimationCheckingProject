@@ -9,7 +9,9 @@ public interface Ihittable
     /// </summary>
     /// <param name="damage"></param>
     /// <param name="attackPlayer"></param>
-    void Hit(int damage, Iattackable attackPlayer);
+    void Hit_Call(int damage, Iattackable attackPlayer);
+    // 그냥 투사체 혹은 원거리 공격 등 총알에 Iattackable을 달아서 사용하는 게 좋을 듯
+
 
     /// <summary>
     /// 포탑 용 Hit 
@@ -17,5 +19,5 @@ public interface Ihittable
     /// 데미지를 받아와 데미지를 입는 함수
     /// </summary>
     /// <param name="damage"></param>
-    void Hit(int damage);
+    //void Hit_Call(int damage);
 }

@@ -26,7 +26,6 @@ public class PlayerDodgeState : PlayerBaseState
             _player.charMove.anim.SetFloat(_player.charMove.XdirRaw, 0);
         }
 
-
         dodgeTime = 0.75f;
     }
 
@@ -43,8 +42,8 @@ public class PlayerDodgeState : PlayerBaseState
 
         if (_player.charMove.animStateInfo.IsTag("Roll") && _player.charMove.animStateInfo.normalizedTime >= 0.85f)
         {
-            _player.charMove.TransitionToState_Call("Idle");
-            //_player.TransitionToState(_player.idleState);
+            //_player.charMove.TransitionToState_Call("Idle");
+            _player.TransitionToState(_player.idleState);
         }
     }
 

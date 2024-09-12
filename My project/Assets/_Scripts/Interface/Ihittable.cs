@@ -5,7 +5,7 @@ public interface Ihittable
     /// 몬스터 및 플레이어 용 Hit 
     /// <br /><br />
     /// 데미지와 때리는 플레이어를 파라미터로 넣어서
-    /// hit 시에 때린 플레이어를 돌아보게 하는 함수
+    /// hit 시에 때린 데미지의 근원지를 보게 하는 함수
     /// </summary>
     /// <param name="damage"></param>
     /// <param name="attackPlayer"></param>

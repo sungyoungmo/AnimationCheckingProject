@@ -862,6 +862,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   charMove: {fileID: 0}
   status: {fileID: 0}
+  playerDamageControll: {fileID: 6751951513568766935}
 --- !u!114 &5491240533559746437
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -913,6 +914,9 @@ MonoBehaviour:
   - Type: 9
     SynchronizeType: 1
     Name: Hit
+  - Type: 4
+    SynchronizeType: 1
+    Name: IsSkill
   m_SynchronizeLayers:
   - SynchronizeType: 0
     LayerIndex: 0
@@ -1448,6 +1452,7 @@ Transform:
   - {fileID: 801988241488187558}
   - {fileID: 7035018344908954695}
   - {fileID: 20464461497503824}
+  - {fileID: 6083913375021664926}
   m_Father: {fileID: 6285361948995978960}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2348,6 +2353,112 @@ Transform:
   m_Father: {fileID: 653266633351756963}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &8833045480574937645
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6083913375021664926}
+  - component: {fileID: 4203330391661433282}
+  - component: {fileID: 5099744130152065926}
+  - component: {fileID: 6751951513568766935}
+  m_Layer: 0
+  m_Name: LeftAttackBoxCollider
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6083913375021664926
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8833045480574937645}
+  m_LocalRotation: {x: -0.10816423, y: -0.08324992, z: 0.01711851, w: 0.9904933}
+  m_LocalPosition: {x: 0.05, y: 0.01, z: -0.025}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7851267363873745203}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: -12.206, y: -9.934, z: 3.045}
+--- !u!65 &4203330391661433282
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8833045480574937645}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.2, y: 0.2, z: 1.6}
+  m_Center: {x: 0, y: 0, z: -0.8}
+--- !u!114 &5099744130152065926
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8833045480574937645}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e7062a130d7fb24409de4187a772871b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  leftClick_DamageP:
+  - skillLevel: 1
+    skillDamagePerAttTime:
+    - attackTime: 1
+      damageP: 1
+    - attackTime: 2
+      damageP: 1.1
+    - attackTime: 3
+      damageP: 1.3
+  - skillLevel: 2
+    skillDamagePerAttTime:
+    - attackTime: 1
+      damageP: 1.2
+    - attackTime: 2
+      damageP: 1.3
+    - attackTime: 3
+      damageP: 1.5
+  - skillLevel: 3
+    skillDamagePerAttTime:
+    - attackTime: 1
+      damageP: 1.4
+    - attackTime: 2
+      damageP: 1.5
+    - attackTime: 3
+      damageP: 1.7
+  rightClick_DamageP:
+  - skillLevel: 1
+    damageP: 1.6
+    skillCooltime: 15
+  - skillLevel: 2
+    damageP: 1.8
+    skillCooltime: 13
+  - skillLevel: 3
+    damageP: 2
+    skillCooltime: 11
+--- !u!114 &6751951513568766935
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8833045480574937645}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e012167d0cf7dc41959713c71f21a22, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8902143501438695024
 GameObject:
   m_ObjectHideFlags: 0

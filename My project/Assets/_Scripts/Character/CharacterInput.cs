@@ -16,6 +16,7 @@ public class CharacterInput : MonoBehaviourPun, IPunObservable
     public readonly int XdirRaw = Animator.StringToHash("XdirRaw");
     public readonly int YdirRaw = Animator.StringToHash("YdirRaw");
     public readonly int Hit = Animator.StringToHash("Hit");
+    public readonly int IsSkill = Animator.StringToHash("IsSkill");
 
     KeyCode[] skillKeys = { KeyCode.Mouse0, KeyCode.Mouse1, KeyCode.F };
 
@@ -130,8 +131,8 @@ public class CharacterInput : MonoBehaviourPun, IPunObservable
             Input.GetKey(KeyCode.S) ||
             Input.GetKey(KeyCode.D)))
         {
-            //playerController.TransitionToState(playerController.moveState);
-            TransitionToState_Call("Move");
+            playerController.TransitionToState(playerController.moveState);
+            //TransitionToState_Call("Move");
         }
         else if 
             (_isMove && !_isAttack &&
@@ -141,16 +142,16 @@ public class CharacterInput : MonoBehaviourPun, IPunObservable
             Input.GetKey(KeyCode.S) ||
             Input.GetKey(KeyCode.D)))
         {
-            //playerController.TransitionToState(playerController.idleState);
-            TransitionToState_Call("Idle");
+            playerController.TransitionToState(playerController.idleState);
+            //TransitionToState_Call("Idle");
         }
 
         
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            //playerController.TransitionToState(playerController.dodgeState);
-            TransitionToState_Call("Dodge");
+            playerController.TransitionToState(playerController.dodgeState);
+            //TransitionToState_Call("Dodge");
         }
 
         if (Input.GetKeyDown(KeyCode.Escape))
@@ -197,41 +198,41 @@ public class CharacterInput : MonoBehaviourPun, IPunObservable
 
     #region 상태 변경 RPC
 
-    public void TransitionToState_Call(string newState)
-    {
-        if (!photonView.IsMine) return;
-        photonView.RPC("TransitionToState_Call_RPC", RpcTarget.AllBuffered, newState);
-    }
+    //public void TransitionToState_Call(string newState)
+    //{
+    //    if (!photonView.IsMine) return;
+    //    photonView.RPC("TransitionToState_Call_RPC", RpcTarget.AllBuffered, newState);
+    //}
 
-    [PunRPC]
-    public void TransitionToState_Call_RPC(string newState)
-    {
-        anim.ResetTrigger(LeftMouse);
-        anim.ResetTrigger(RightMouse);
+    //[PunRPC]
+    //public void TransitionToState_Call_RPC(string newState)
+    //{
+    //    anim.ResetTrigger(LeftMouse);
+    //    anim.ResetTrigger(RightMouse);
 
-        switch (newState)
-        {
-            case "Idle":
-                playerController.TransitionToState(playerController.idleState);
-                break;
+    //    switch (newState)
+    //    {
+    //        case "Idle":
+    //            playerController.TransitionToState(playerController.idleState);
+    //            break;
 
-            case "Move":
-                playerController.TransitionToState(playerController.moveState);
-                break;
+    //        case "Move":
+    //            playerController.TransitionToState(playerController.moveState);
+    //            break;
 
-            case "Skill":
-                playerController.TransitionToState(playerController.skillState);
-                break;
+    //        case "Skill":
+    //            playerController.TransitionToState(playerController.skillState);
+    //            break;
 
-            case "Dodge":
-                playerController.TransitionToState(playerController.dodgeState);
-                break;
+    //        case "Dodge":
+    //            playerController.TransitionToState(playerController.dodgeState);
+    //            break;
 
-            case "Hit":
-                playerController.TransitionToState(playerController.hitState);
-                break;
-        }
-    }
+    //        case "Hit":
+    //            playerController.TransitionToState(playerController.hitState);
+    //            break;
+    //    }
+    //}
 
     #endregion
 
@@ -247,6 +248,7 @@ public class CharacterInput : MonoBehaviourPun, IPunObservable
     public void Skill_Common_Attack_RPC(int attackerViewID)
     {
         if (photonView.ViewID != attackerViewID) return;
+
         anim.SetTrigger(LeftMouse);
     }
     #endregion
@@ -263,7 +265,6 @@ public class CharacterInput : MonoBehaviourPun, IPunObservable
     public void Skill_Right_Attack_RPC(int attackerViewID)
     {
         if (photonView.ViewID != attackerViewID) return;
-
 
         anim.SetTrigger(RightMouse);
     }

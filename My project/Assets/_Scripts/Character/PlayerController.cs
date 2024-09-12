@@ -18,6 +18,7 @@ public class PlayerController : MonoBehaviourPun, Ihittable, Iattackable, IPunOb
 
     public CharacterInput charMove;
     public PlayerStatus status;
+    public PlayerDamageConroller playerDamageControll;
     
 
     private void Awake()
@@ -30,6 +31,8 @@ public class PlayerController : MonoBehaviourPun, Ihittable, Iattackable, IPunOb
         skillState = new PlayerSkillState(this);
         dodgeState = new PlayerDodgeState(this);
         hitState = new PlayerHitState(this);
+
+        //skillInfo = playerDamageControll.gameObject.GetComponent<SkillDamagePercentage>();
     }
 
     private void OnEnable()
@@ -81,7 +84,8 @@ public class PlayerController : MonoBehaviourPun, Ihittable, Iattackable, IPunOb
     [PunRPC]
     public void Hit_RPC(int damage, Vector3 attackPlayerPosition)
     {
-        charMove.TransitionToState_Call("Hit");
+        //charMove.TransitionToState_Call("Hit");
+        TransitionToState(hitState);
 
         transform.LookAt(attackPlayerPosition);
 
@@ -110,8 +114,13 @@ public class PlayerController : MonoBehaviourPun, Ihittable, Iattackable, IPunOb
     {
         return this.transform;
     }
+    #endregion
 
-    
+    /*
+        여기에 스킬 레벨업 하는 함수를 호출하는 RPC 설정
+        실질적으로 스킬 레벨업을 하는 코드는 SkillDamagePercentage에
+    */
+
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {
         // 여기서는 스탯을 업데이트할건데
@@ -127,6 +136,6 @@ public class PlayerController : MonoBehaviourPun, Ihittable, Iattackable, IPunOb
         }
     }
 
-    #endregion
+    
 
 }

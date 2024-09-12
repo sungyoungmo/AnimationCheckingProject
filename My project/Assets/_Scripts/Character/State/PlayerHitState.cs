@@ -21,7 +21,14 @@ public class PlayerHitState : PlayerBaseState
 
     public override void OnStateUpdate()
     {
-        
+        _player.charMove.SetAnimState();
+
+        if (_player.charMove.animStateInfo.IsName("Hit") && _player && _player.charMove.animStateInfo.normalizedTime >= 0.99f)
+        {
+            _player.TransitionToState(_player.idleState);
+        }
+
+        _player.charMove.DodgeDirectionCheck();
     }
     public override void OnStateFixedUpdate()
     {

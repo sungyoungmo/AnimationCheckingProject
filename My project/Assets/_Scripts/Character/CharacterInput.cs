@@ -87,6 +87,12 @@ public class CharacterInput : MonoBehaviourPun, IPunObservable
 
         anim.SetFloat(XdirRaw, xyMoveRaw.x);
         anim.SetFloat(YdirRaw, xyMoveRaw.y);
+
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            playerController.TransitionToState(playerController.dodgeState);
+            //TransitionToState_Call("Dodge");
+        }
     }
 
     public void MouseMove()
@@ -148,11 +154,7 @@ public class CharacterInput : MonoBehaviourPun, IPunObservable
 
         
 
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            playerController.TransitionToState(playerController.dodgeState);
-            //TransitionToState_Call("Dodge");
-        }
+        
 
         if (Input.GetKeyDown(KeyCode.Escape))
         {

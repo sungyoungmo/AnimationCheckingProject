@@ -756,7 +756,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1711860649515310392}
   serializedVersion: 2
-  m_Mass: 1000
+  m_Mass: 1
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 1
@@ -818,7 +818,6 @@ MonoBehaviour:
   _isMove: 0
   _isAttack: 0
   _isDodge: 0
-  _damageImmune: 0
 --- !u!114 &2604866517477277458
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -863,6 +862,7 @@ MonoBehaviour:
   charMove: {fileID: 0}
   status: {fileID: 0}
   playerDamageControll: {fileID: 6751951513568766935}
+  skillInfo: {fileID: 0}
 --- !u!114 &5491240533559746437
 MonoBehaviour:
   m_ObjectHideFlags: 0

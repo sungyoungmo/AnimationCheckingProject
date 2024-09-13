@@ -4,12 +4,16 @@ using UnityEngine;
 
 public class PlayerDamageConroller : MonoBehaviour
 {
+
+
     BoxCollider bc;
     SkillDamagePercentage skillInfo;
 
-    int damage;
+    int damage = 10;
     int attackTime;
     PlayerController player;
+
+    List<Ihittable> hitMobList = new();
 
     private void Start()
     {
@@ -18,15 +22,23 @@ public class PlayerDamageConroller : MonoBehaviour
         player = GetComponentInParent<PlayerController>();
     }
 
+    public void EnableCollider()
+    {
+        bc.enabled = true;
+        int comboCount = player.charMove.anim.GetInteger(player.charMove.ComboCount);
+        damage = skillInfo.LeftClickDamage(comboCount);
+    }
 
-    // 갑자기 아무것도 안되는 상황이 발생함
-    // 체력이 0이하로 내려갔을 때 등등 조건 따져서 확인해보기
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.TryGetComponent<Ihittable>(out Ihittable hitMob))
         {
-            hitMob.Hit_Call(damage, player);
+            if (!hitMobList.Contains(hitMob))
+            {
+                hitMob.Hit_Call(damage, player);
+                hitMobList.Add(hitMob);
+            }
         }
     }
 }

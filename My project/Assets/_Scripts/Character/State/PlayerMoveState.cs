@@ -24,11 +24,11 @@ public class PlayerMoveState : PlayerBaseState
     {
         _player.charMove.MouseMove();
 
-        _player.charMove.DodgeDirectionCheck();
-
         _player.charMove.AttackCheck();
 
         _player.charMove.InputCheck();
+
+        _player.charMove.DodgeDirectionCheck();
 
     }
 

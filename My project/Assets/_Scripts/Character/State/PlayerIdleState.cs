@@ -17,7 +17,7 @@ public class PlayerIdleState : PlayerBaseState
 
     public override void OnStateExit()
     {
-        _player.charMove.DodgeDirectionCheck();
+        
     }
 
     public override void OnStateUpdate()
@@ -27,6 +27,8 @@ public class PlayerIdleState : PlayerBaseState
         _player.charMove.AttackCheck();
 
         _player.charMove.InputCheck();
+
+        _player.charMove.DodgeDirectionCheck();
     }
 
     public override void OnStateFixedUpdate()

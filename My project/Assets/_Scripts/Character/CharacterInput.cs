@@ -17,6 +17,8 @@ public class CharacterInput : MonoBehaviourPun, IPunObservable
     public readonly int YdirRaw = Animator.StringToHash("YdirRaw");
     public readonly int Hit = Animator.StringToHash("Hit");
     public readonly int IsSkill = Animator.StringToHash("IsSkill");
+    public readonly int ComboCount = Animator.StringToHash("ComboCount");
+
 
     KeyCode[] skillKeys = { KeyCode.Mouse0, KeyCode.Mouse1, KeyCode.F };
 
@@ -43,8 +45,6 @@ public class CharacterInput : MonoBehaviourPun, IPunObservable
     public bool _isMove;
     public bool _isAttack;
     public bool _isDodge;
-
-    public bool _damageImmune;
 
     private void Awake()
     {
@@ -75,7 +75,6 @@ public class CharacterInput : MonoBehaviourPun, IPunObservable
 
         anim.SetFloat(Xdir, xyMove.x);
         anim.SetFloat(Ydir, xyMove.y);
-
     }
 
     public void DodgeDirectionCheck()
@@ -151,8 +150,6 @@ public class CharacterInput : MonoBehaviourPun, IPunObservable
             playerController.TransitionToState(playerController.idleState);
             //TransitionToState_Call("Idle");
         }
-
-        
 
         
 

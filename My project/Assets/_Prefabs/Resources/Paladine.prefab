@@ -222,11 +222,61 @@ PrefabInstance:
       propertyPath: leftClick_DamageP.Array.data[2].skillDamagePerAttTime.Array.data[2].damageP
       value: 1.6
       objectReference: {fileID: 0}
+    - target: {fileID: 5491240533559746437, guid: c204b32f184d4bd49a8c29d265e57c80,
+        type: 3}
+      propertyPath: m_SynchronizeParameters.Array.size
+      value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: 5491240533559746437, guid: c204b32f184d4bd49a8c29d265e57c80,
+        type: 3}
+      propertyPath: m_SynchronizeParameters.Array.data[13].Name
+      value: ComboCount
+      objectReference: {fileID: 0}
+    - target: {fileID: 5491240533559746437, guid: c204b32f184d4bd49a8c29d265e57c80,
+        type: 3}
+      propertyPath: m_SynchronizeParameters.Array.data[13].Type
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 5697223032172839505, guid: c204b32f184d4bd49a8c29d265e57c80,
         type: 3}
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: 7aacbc4b28f342443960316aeb58d644, type: 2}
+    - target: {fileID: 6083913375021664926, guid: c204b32f184d4bd49a8c29d265e57c80,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.99012613
+      objectReference: {fileID: 0}
+    - target: {fileID: 6083913375021664926, guid: c204b32f184d4bd49a8c29d265e57c80,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.11147562
+      objectReference: {fileID: 0}
+    - target: {fileID: 6083913375021664926, guid: c204b32f184d4bd49a8c29d265e57c80,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0.07747663
+      objectReference: {fileID: 0}
+    - target: {fileID: 6083913375021664926, guid: c204b32f184d4bd49a8c29d265e57c80,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0.03494237
+      objectReference: {fileID: 0}
+    - target: {fileID: 6083913375021664926, guid: c204b32f184d4bd49a8c29d265e57c80,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 13.071
+      objectReference: {fileID: 0}
+    - target: {fileID: 6083913375021664926, guid: c204b32f184d4bd49a8c29d265e57c80,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: -8.598
+      objectReference: {fileID: 0}
+    - target: {fileID: 6083913375021664926, guid: c204b32f184d4bd49a8c29d265e57c80,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 3.055
+      objectReference: {fileID: 0}
     - target: {fileID: 7035018344908954695, guid: c204b32f184d4bd49a8c29d265e57c80,
         type: 3}
       propertyPath: m_LocalPosition.x

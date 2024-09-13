@@ -19,12 +19,17 @@ public class PlayerController : MonoBehaviourPun, Ihittable, Iattackable, IPunOb
     public CharacterInput charMove;
     public PlayerStatus status;
     public PlayerDamageConroller playerDamageControll;
+    public SkillDamagePercentage skillInfo;
+    
+    Rigidbody rb;
     
 
     private void Awake()
     {
         charMove = GetComponent<CharacterInput>();
         status = GetComponent<PlayerStatus>();
+        skillInfo = GetComponentInChildren<SkillDamagePercentage>();
+        rb = GetComponent<Rigidbody>();
 
         idleState = new PlayerIdleState(this);
         moveState = new PlayerMoveState(this);
@@ -88,6 +93,7 @@ public class PlayerController : MonoBehaviourPun, Ihittable, Iattackable, IPunOb
         TransitionToState(hitState);
 
         transform.LookAt(attackPlayerPosition);
+        rb.AddForce(transform.TransformDirection(Vector3.back) * 10, ForceMode.Impulse);
 
         photonView.RPC("Hit_Set_DamageImmune", RpcTarget.All, true);
     }
@@ -95,7 +101,7 @@ public class PlayerController : MonoBehaviourPun, Ihittable, Iattackable, IPunOb
     [PunRPC]
     public void Hit_Set_DamageImmune(bool isImmune)
     {
-        charMove._damageImmune = isImmune;
+        //charMove._damageImmune = isImmune;
 
         if (isImmune)
         {
@@ -108,6 +114,18 @@ public class PlayerController : MonoBehaviourPun, Ihittable, Iattackable, IPunOb
         yield return new WaitForSeconds(0.2f);
         photonView.RPC("Hit_Set_DamageImmune", RpcTarget.All, false);
     }
+
+    public void Attack_Call()
+    {
+        photonView.RPC("Attack_RPC", RpcTarget.All);
+    }
+
+    [PunRPC]
+    public void Attack_RPC()
+    {
+        playerDamageControll.EnableCollider();
+    }
+
 
 
     public Transform GetTransform()
@@ -137,5 +155,4 @@ public class PlayerController : MonoBehaviourPun, Ihittable, Iattackable, IPunOb
     }
 
     
-
 }

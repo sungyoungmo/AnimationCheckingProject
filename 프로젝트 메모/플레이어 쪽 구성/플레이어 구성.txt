@@ -6,7 +6,7 @@ state
 	
 status
 	int rootAtk: 버프 적용 전 root 공격력
-	float lastAtk: 버프 적용 후 공격력
+	int lastAtk: 버프 적용 후 공격력
 	
 	float atk_spd: 공격 속도
 	

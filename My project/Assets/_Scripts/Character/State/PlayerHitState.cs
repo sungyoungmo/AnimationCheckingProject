@@ -23,7 +23,8 @@ public class PlayerHitState : PlayerBaseState
     {
         _player.charMove.SetAnimState();
 
-        if (_player.charMove.animStateInfo.IsName("Hit") && _player && _player.charMove.animStateInfo.normalizedTime >= 0.99f)
+        
+        if (_player.charMove.animStateInfo.IsName("Hit") && _player && _player.charMove.animStateInfo.normalizedTime >= 0.80f)
         {
             _player.TransitionToState(_player.idleState);
         }

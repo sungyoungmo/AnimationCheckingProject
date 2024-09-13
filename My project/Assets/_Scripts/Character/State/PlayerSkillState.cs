@@ -10,7 +10,6 @@ public class PlayerSkillState : PlayerBaseState
     }
 
     AnimatorStateInfo currentAnimState;
-    int attackTime;
 
     public override void OnStateEnter()
     {
@@ -25,13 +24,14 @@ public class PlayerSkillState : PlayerBaseState
         switch (input)
         {
             case KeyCode.Mouse0:
-                attackTime = 0;
 
                 //_player.charMove.Skill_Common_Attack();
                 _player.charMove.anim.SetTrigger(_player.charMove.LeftMouse);
-                
+
+                _player.Attack_Call();
+
                 //_player.bc.enabled = true;
-                
+
 
                 break;
 
@@ -45,7 +45,6 @@ public class PlayerSkillState : PlayerBaseState
 
                 break;
         }
-
 
         _player.charMove.SetIsAttackOn(true);
     }
@@ -62,14 +61,6 @@ public class PlayerSkillState : PlayerBaseState
         _player.charMove.SetAnimState();
         currentAnimState = _player.charMove.anim.GetCurrentAnimatorStateInfo(0);
 
-        //if ((_player.charMove.animStateInfo.IsTag("Attack StateMachine") ||
-        //    _player.charMove.animStateInfo.IsName("Skill_RightMouse")) &&
-        //    _player.charMove.animStateInfo.normalizedTime >= 0.05f &&
-        //    currentAnimState.IsName(_player.charMove.animStateInfo.fullPathHash.ToString()))
-        //{
-        //    _player.charMove.anim.ResetTrigger(_player.charMove.LeftMouse);
-        //}
-
         if ((_player.charMove.animStateInfo.IsTag("Attack StateMachine") ||
             _player.charMove.animStateInfo.IsName("Skill_RightMouse"))
             && 
@@ -78,10 +69,10 @@ public class PlayerSkillState : PlayerBaseState
             //_player.charMove.TransitionToState_Call("Idle");
             _player.TransitionToState(_player.idleState);
 
-            if (_player.charMove.anim.GetBool(_player.charMove.LeftMouse))
-            {
-                _player.charMove.anim.ResetTrigger(_player.charMove.LeftMouse);
-            }
+            //if (_player.charMove.anim.GetBool(_player.charMove.LeftMouse))
+            //{
+            //    _player.charMove.anim.ResetTrigger(_player.charMove.LeftMouse);
+            //}
 
         }
 
@@ -100,7 +91,7 @@ public class PlayerSkillState : PlayerBaseState
             }
         }
 
-        _player.charMove.InputCheck();
+        //_player.charMove.InputCheck();
     }
 
     public override void OnStateFixedUpdate()

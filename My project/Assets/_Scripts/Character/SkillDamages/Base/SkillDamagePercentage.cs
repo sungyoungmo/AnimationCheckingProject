@@ -29,8 +29,8 @@ public class SkillDamagePercentage : MonoBehaviour
         public float skillCooltime;
     }
 
-    int LeftClick_SkillLevel = 1;
-    int RightClick_SkillLevel = 1;
+    int LeftClick_SkillLevel = 2;
+    int RightClick_SkillLevel = 0;
 
     PlayerStatus ps;
 

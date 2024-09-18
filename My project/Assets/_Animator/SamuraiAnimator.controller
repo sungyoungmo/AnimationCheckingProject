@@ -98,11 +98,11 @@ MonoBehaviour:
   triggerName: LeftMouse
   comboInfo:
   - comboName: combo_01_1
-    comboCount: 1
+    comboCount: 0
   - comboName: combo_01_2
-    comboCount: 2
+    comboCount: 1
   - comboName: combo_01_3
-    comboCount: 3
+    comboCount: 2
 --- !u!1101 &-7014314403757445958
 AnimatorStateTransition:
   m_ObjectHideFlags: 1

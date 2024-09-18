@@ -111,6 +111,8 @@ public class CharacterInput : MonoBehaviourPun, IPunObservable
         cameraTransform.transform.LookAt(lookingSpot.position);
     }
 
+    // OutOfExeption 발생: 이유는 모르겠음
+
     public void AttackCheck()
     {
         if (!photonView.IsMine) return;

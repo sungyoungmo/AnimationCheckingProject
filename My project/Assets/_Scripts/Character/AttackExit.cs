@@ -9,6 +9,10 @@ public class AttackExit : StateMachineBehaviour
     [SerializeField]
     string triggerName;
 
+    PlayerDamageConroller playerDamage;
+    bool colliderEnabled = false;
+    AnimatorStateInfo previousStateInfo = new();
+
     [System.Serializable]
     public class ComboInfo
     {
@@ -19,9 +23,18 @@ public class AttackExit : StateMachineBehaviour
     [SerializeField]
     public List<ComboInfo> comboInfo;
 
+    public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+    {
+        if (playerDamage == null)
+        {
+            playerDamage = animator.gameObject.GetComponentInChildren<PlayerDamageConroller>();
+        }
+
+    }
 
     public override void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
+        playerDamage.DisableCollider();
         animator.ResetTrigger(triggerName);
         animator.SetInteger(ComboCount, 0);
     }
@@ -33,6 +46,16 @@ public class AttackExit : StateMachineBehaviour
             if (animator.GetCurrentAnimatorStateInfo(0).IsName(item.comboName))
             {
                 animator.SetInteger(ComboCount, item.comboCount);
+
+                
+                if (previousStateInfo.fullPathHash != animator.GetCurrentAnimatorStateInfo(0).fullPathHash)
+                {
+                    playerDamage.EnableCollider();
+                }
+
+                previousStateInfo = animator.GetCurrentAnimatorStateInfo(0);
+
+                return;
             }
         }
     }

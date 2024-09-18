@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class PlayerDamageConroller : MonoBehaviour
 {
-
-
     BoxCollider bc;
     SkillDamagePercentage skillInfo;
 
@@ -27,7 +25,14 @@ public class PlayerDamageConroller : MonoBehaviour
         bc.enabled = true;
         int comboCount = player.charMove.anim.GetInteger(player.charMove.ComboCount);
         damage = skillInfo.LeftClickDamage(comboCount);
+        hitMobList.Clear();
     }
+
+    public void DisableCollider()
+    {
+        bc.enabled = false;
+    }
+
 
 
     private void OnTriggerEnter(Collider other)

@@ -1,0 +1,18 @@
+1. 막 누르다보니 문제가 발생함
+ArgumentsOutOfExeption 발생
+
+public void AttackCheck()
+{
+    if (!photonView.IsMine) return;
+
+    foreach (var keyInput in skillKeys)
+    {
+        if (!_isAttack && Input.GetKeyDown(keyInput))
+        {
+            playerController.TransitionToState(playerController.skillState,keyInput);
+            break;
+        }
+    }
+}
+
+===================================================================================================================================================

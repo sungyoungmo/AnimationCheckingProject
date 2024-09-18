@@ -30,6 +30,9 @@ public class PlayerHitState : PlayerBaseState
         }
 
         _player.charMove.DodgeDirectionCheck();
+
+
+        _player.rb.AddForce(_player.transform.TransformDirection(Vector3.back) * 10, ForceMode.Acceleration);
     }
     public override void OnStateFixedUpdate()
     {

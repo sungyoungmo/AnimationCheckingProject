@@ -20,8 +20,8 @@ public class PlayerController : MonoBehaviourPun, Ihittable, Iattackable, IPunOb
     public PlayerStatus status;
     public PlayerDamageConroller playerDamageControll;
     public SkillDamagePercentage skillInfo;
-    
-    Rigidbody rb;
+
+    public Rigidbody rb;
     
 
     private void Awake()
@@ -93,7 +93,7 @@ public class PlayerController : MonoBehaviourPun, Ihittable, Iattackable, IPunOb
         TransitionToState(hitState);
 
         transform.LookAt(attackPlayerPosition);
-        rb.AddForce(transform.TransformDirection(Vector3.back) * 10, ForceMode.Impulse);
+        //rb.AddForce(transform.TransformDirection(Vector3.back) * 10, ForceMode.);
 
         photonView.RPC("Hit_Set_DamageImmune", RpcTarget.All, true);
     }
@@ -111,7 +111,7 @@ public class PlayerController : MonoBehaviourPun, Ihittable, Iattackable, IPunOb
 
     IEnumerator HitImmuneCoroutine()
     {
-        yield return new WaitForSeconds(0.2f);
+        yield return new WaitForSeconds(0.4f);
         photonView.RPC("Hit_Set_DamageImmune", RpcTarget.All, false);
     }
 

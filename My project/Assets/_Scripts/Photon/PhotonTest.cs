@@ -45,7 +45,7 @@ public class PhotonTest : MonoBehaviourPunCallbacks
         string a = "Paladine";
         string b = "Samurai";
 
-        GameObject player = PhotonNetwork.Instantiate(a, new Vector3(0, 0, 0), Quaternion.identity);
+        GameObject player = PhotonNetwork.Instantiate(b, new Vector3(0, 0, 0), Quaternion.identity);
         BuffManager.instance.AddPlayerList(player.GetComponent<PlayerStatus>());
     }
 }

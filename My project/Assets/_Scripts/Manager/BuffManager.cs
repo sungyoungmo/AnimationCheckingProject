@@ -6,8 +6,8 @@ public class BuffManager : MonoBehaviour
 {
     public static BuffManager instance;
 
-    public List<PlayerStatus> A_Team_players = new();
-    public List<PlayerStatus> B_Team_players = new();
+    public List<PlayerStatus> _A_Team_players = new();
+    public List<PlayerStatus> _B_Team_players = new();
 
     public List<PlayerStatus> testList = new();
 
@@ -16,13 +16,40 @@ public class BuffManager : MonoBehaviour
 
     private void Awake()
     {
-        instance = this;
+        if (instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
 
         foreach (var buff in buffList)
         {
             buffDic.Add(buff._BuffOrDebuffType, buff);
         }
     }
+
+    private void Start()
+    {
+        
+    }
+
+    public void InitializeBuffManagerList()
+    {
+        foreach (var aTeamPlayer in PlayerManager.instance.A_Team_Players)
+        {
+            _A_Team_players.Add(aTeamPlayer.GetComponent<PlayerStatus>());
+        }
+
+        foreach (var bTeamPlayer in PlayerManager.instance.B_Team_Players)
+        {
+            _B_Team_players.Add(bTeamPlayer.GetComponent<PlayerStatus>());
+        }
+    }
+
 
     /// <summary>
     /// 시작 버튼을 누를 때 커스텀 프로퍼티에 추가해서 넘기고

@@ -36,7 +36,7 @@ public class PhotonTest : MonoBehaviourPunCallbacks
 
     public override void OnPlayerEnteredRoom(Player newPlayer)
     {
-        Debug.Log(1);
+
     }
 
     public override void OnJoinedRoom()
@@ -45,7 +45,9 @@ public class PhotonTest : MonoBehaviourPunCallbacks
         string a = "Paladine";
         string b = "Samurai";
 
-        GameObject player = PhotonNetwork.Instantiate(b, new Vector3(0, 0, 0), Quaternion.identity);
-        BuffManager.instance.AddPlayerList(player.GetComponent<PlayerStatus>());
+        GameObject player = PhotonNetwork.Instantiate(a, new Vector3(0, 0, 0), Quaternion.identity);
+        //BuffManager.instance.AddPlayerList(player.GetComponent<PlayerStatus>());
+
+        //PlayerManager.instance.AddPlayerList(player, "A");
     }
 }

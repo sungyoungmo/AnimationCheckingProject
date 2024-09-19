@@ -47,6 +47,7 @@ MonoBehaviour:
   - Hit_RPC
   - Hit_Set_DamageImmune
   - Attack_RPC
+  - AddPlayerList_RPC
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

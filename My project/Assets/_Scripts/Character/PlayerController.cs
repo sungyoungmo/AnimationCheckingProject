@@ -89,11 +89,14 @@ public class PlayerController : MonoBehaviourPun, Ihittable, Iattackable, IPunOb
     [PunRPC]
     public void Hit_RPC(int damage, Vector3 attackPlayerPosition)
     {
-        //charMove.TransitionToState_Call("Hit");
         TransitionToState(hitState);
 
-        transform.LookAt(attackPlayerPosition);
-        //rb.AddForce(transform.TransformDirection(Vector3.back) * 10, ForceMode.);
+        Vector3 targetPosition = new Vector3(attackPlayerPosition.x, transform.position.y, attackPlayerPosition.z);
+
+        transform.LookAt(targetPosition);
+
+        //rb.AddForce(transform.TransformDirection(Vector3.back) * 10, ForceMode.Impulse);
+
 
         photonView.RPC("Hit_Set_DamageImmune", RpcTarget.All, true);
     }
@@ -111,7 +114,7 @@ public class PlayerController : MonoBehaviourPun, Ihittable, Iattackable, IPunOb
 
     IEnumerator HitImmuneCoroutine()
     {
-        yield return new WaitForSeconds(0.4f);
+        yield return new WaitForSeconds(0.8f);
         photonView.RPC("Hit_Set_DamageImmune", RpcTarget.All, false);
     }
 

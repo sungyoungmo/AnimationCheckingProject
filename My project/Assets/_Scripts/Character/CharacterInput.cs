@@ -242,7 +242,7 @@ public class CharacterInput : MonoBehaviourPun, IPunObservable
     public void Skill_Common_Attack()
     {
         if (!photonView.IsMine) return;
-        photonView.RPC("Skill_Common_Attack_RPC", RpcTarget.AllBuffered, photonView.ViewID);
+        photonView.RPC("Skill_Common_Attack_RPC", RpcTarget.AllBufferedViaServer, photonView.ViewID);
     }
 
     [PunRPC]
@@ -279,13 +279,13 @@ public class CharacterInput : MonoBehaviourPun, IPunObservable
     {
         if (stream.IsWriting)
         {
-            stream.SendNext(_isAttack);
+            //stream.SendNext(_isAttack);
         }
         else
         {
-            bool isOnAttack = (bool)stream.ReceiveNext();
+            //bool isOnAttack = (bool)stream.ReceiveNext();
 
-            anim.SetBool(IsAttack, isOnAttack);
+            //anim.SetBool(IsAttack, isOnAttack);
         }
     }
 }

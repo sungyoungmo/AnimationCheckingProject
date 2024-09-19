@@ -47,7 +47,6 @@ public class AttackExit : StateMachineBehaviour
             {
                 animator.SetInteger(ComboCount, item.comboCount);
 
-                
                 if (previousStateInfo.fullPathHash != animator.GetCurrentAnimatorStateInfo(0).fullPathHash)
                 {
                     playerDamage.EnableCollider();

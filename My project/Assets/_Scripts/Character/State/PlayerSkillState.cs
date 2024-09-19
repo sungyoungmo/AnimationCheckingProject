@@ -64,7 +64,7 @@ public class PlayerSkillState : PlayerBaseState
         if ((_player.charMove.animStateInfo.IsTag("Attack StateMachine") ||
             _player.charMove.animStateInfo.IsName("Skill_RightMouse"))
             && 
-            _player.charMove.animStateInfo.normalizedTime >= 0.99f)
+            _player.charMove.animStateInfo.normalizedTime >= 0.9f)  
         {
             //_player.charMove.TransitionToState_Call("Idle");
             _player.TransitionToState(_player.idleState);
@@ -87,7 +87,8 @@ public class PlayerSkillState : PlayerBaseState
         {
             if (_player.charMove.anim.GetBool(_player.charMove.IsAttack))
             {
-                _player.charMove.Skill_Common_Attack();
+                //_player.charMove.Skill_Common_Attack();
+                _player.charMove.anim.SetTrigger(_player.charMove.LeftMouse);
             }
         }
 

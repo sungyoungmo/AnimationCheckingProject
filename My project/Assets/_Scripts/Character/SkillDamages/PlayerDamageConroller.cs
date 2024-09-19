@@ -11,6 +11,9 @@ public class PlayerDamageConroller : MonoBehaviour
     int attackTime;
     PlayerController player;
 
+    LayerMask targetLayer;
+
+
     List<Ihittable> hitMobList = new();
 
     private void Start()
@@ -18,6 +21,17 @@ public class PlayerDamageConroller : MonoBehaviour
         bc = GetComponent<BoxCollider>();
         skillInfo = GetComponent<SkillDamagePercentage>();
         player = GetComponentInParent<PlayerController>();
+
+        if (player.gameObject.layer == 10)
+        {
+            targetLayer = 10;
+        }
+        else if (player.gameObject.layer == 11)
+        {
+            targetLayer = 11;
+        }
+
+            
     }
 
     public void EnableCollider()
@@ -37,7 +51,7 @@ public class PlayerDamageConroller : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.TryGetComponent<Ihittable>(out Ihittable hitMob))
+        if (other.TryGetComponent<Ihittable>(out Ihittable hitMob) && other.gameObject.layer == targetLayer)
         {
             if (!hitMobList.Contains(hitMob))
             {

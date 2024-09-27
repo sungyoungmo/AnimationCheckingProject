@@ -28,8 +28,6 @@ public class PlayerMoveState : PlayerBaseState
 
         _player.charMove.InputCheck();
 
-        _player.charMove.DodgeDirectionCheck();
-
     }
 
     public override void OnStateFixedUpdate()

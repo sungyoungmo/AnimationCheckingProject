@@ -29,8 +29,6 @@ public class PlayerHitState : PlayerBaseState
             _player.TransitionToState(_player.idleState);
         }
 
-        _player.charMove.DodgeDirectionCheck();
-
     }
     public override void OnStateFixedUpdate()
     {

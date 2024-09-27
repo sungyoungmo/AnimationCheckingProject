@@ -13,17 +13,12 @@ public class CharacterInput : MonoBehaviourPun, IPunObservable
     public readonly int RightMouse = Animator.StringToHash("RightMouse");
     public readonly int SpaceBar = Animator.StringToHash("SpaceBar");
     public readonly int IsDodge = Animator.StringToHash("IsDodge");
-    public readonly int XdirRaw = Animator.StringToHash("XdirRaw");
-    public readonly int YdirRaw = Animator.StringToHash("YdirRaw");
     public readonly int Hit = Animator.StringToHash("Hit");
     public readonly int IsSkill = Animator.StringToHash("IsSkill");
-    public readonly int ComboCount = Animator.StringToHash("ComboCount");
-
 
     KeyCode[] skillKeys = { KeyCode.Mouse0, KeyCode.Mouse1, KeyCode.F };
 
     public AnimatorStateInfo animStateInfo;
-
 
     public Vector2 xyMove = new Vector2();
     public Vector2 xyMoveRaw = new Vector2();
@@ -77,23 +72,6 @@ public class CharacterInput : MonoBehaviourPun, IPunObservable
         anim.SetFloat(Ydir, xyMove.y);
     }
 
-    public void DodgeDirectionCheck()
-    {
-        if (!photonView.IsMine) return;
-
-        xyMoveRaw.x = Input.GetAxisRaw("Horizontal");
-        xyMoveRaw.y = Input.GetAxisRaw("Vertical");
-
-        anim.SetFloat(XdirRaw, xyMoveRaw.x);
-        anim.SetFloat(YdirRaw, xyMoveRaw.y);
-
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            playerController.TransitionToState(playerController.dodgeState);
-            //TransitionToState_Call("Dodge");
-        }
-    }
-
     public void MouseMove()
     {
         if (!photonView.IsMine) return;
@@ -121,7 +99,7 @@ public class CharacterInput : MonoBehaviourPun, IPunObservable
         {
             if (!_isAttack && Input.GetKeyDown(keyInput))
             {
-                playerController.TransitionToState(playerController.skillState,keyInput);
+                //playerController.TransitionToState(playerController.skillState,keyInput);
                 break;
             }
         }
@@ -193,47 +171,6 @@ public class CharacterInput : MonoBehaviourPun, IPunObservable
         _isDodge = nowDodge;
         anim.SetBool(IsDodge, nowDodge);
     }
-
-    #endregion
-
-
-    #region 상태 변경 RPC
-
-    //public void TransitionToState_Call(string newState)
-    //{
-    //    if (!photonView.IsMine) return;
-    //    photonView.RPC("TransitionToState_Call_RPC", RpcTarget.AllBuffered, newState);
-    //}
-
-    //[PunRPC]
-    //public void TransitionToState_Call_RPC(string newState)
-    //{
-    //    anim.ResetTrigger(LeftMouse);
-    //    anim.ResetTrigger(RightMouse);
-
-    //    switch (newState)
-    //    {
-    //        case "Idle":
-    //            playerController.TransitionToState(playerController.idleState);
-    //            break;
-
-    //        case "Move":
-    //            playerController.TransitionToState(playerController.moveState);
-    //            break;
-
-    //        case "Skill":
-    //            playerController.TransitionToState(playerController.skillState);
-    //            break;
-
-    //        case "Dodge":
-    //            playerController.TransitionToState(playerController.dodgeState);
-    //            break;
-
-    //        case "Hit":
-    //            playerController.TransitionToState(playerController.hitState);
-    //            break;
-    //    }
-    //}
 
     #endregion
 

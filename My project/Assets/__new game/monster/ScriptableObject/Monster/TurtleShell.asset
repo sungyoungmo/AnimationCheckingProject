@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d0db5abbda6d7d43965108bbf8c3d03, type: 3}
+  m_Name: TurtleShell
+  m_EditorClassIdentifier: 
+  ownType: {fileID: 0}
+  maxHP: 125
+  rootATK: 25
+  rootSPD: 25
+  rootDEF: 25
+  currentHP: 0
+  lastATK: 0
+  lastSPD: 0
+  lastDEF: 0
+  isDead: 0
+  buffs_Or_Debuffs: 0

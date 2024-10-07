@@ -7,6 +7,8 @@ public class ngMonsterController : MonoBehaviourPun, IPunObservable
 {
     public ngMonster monsterInfo;
 
+    public GameObject positionAndCamera;
+
     public Animator anim;
 
     private void Awake()

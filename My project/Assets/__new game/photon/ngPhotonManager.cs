@@ -8,9 +8,7 @@ public class ngPhotonManager : MonoBehaviourPunCallbacks
 {
     private ClientState photonState = 0;
 
-    //List<int> playerArr = new();
-
-    public Transform[] playerPosition;
+    public GameObject[] playerPosition;
 
     private void Awake()
     {
@@ -47,10 +45,6 @@ public class ngPhotonManager : MonoBehaviourPunCallbacks
         PhotonNetwork.CreateRoom(null,ro);
     }
 
-
-    
-
-
     private void Update()
     {
         if (PhotonNetwork.NetworkClientState != photonState)
@@ -64,8 +58,6 @@ public class ngPhotonManager : MonoBehaviourPunCallbacks
     {
         base.OnJoinedLobby();
     }
-
-    
 
     public override void OnConnectedToMaster()
     {
@@ -81,15 +73,17 @@ public class ngPhotonManager : MonoBehaviourPunCallbacks
 
     public override void OnJoinedRoom()
     {
-        
-
         if (PhotonNetwork.CurrentRoom.PlayerCount > 1)
         {
-            GameObject player = PhotonNetwork.Instantiate("Slime", playerPosition[1].position, Quaternion.identity);
+            GameObject player = PhotonNetwork.Instantiate("Slime", playerPosition[1].transform.position, Quaternion.identity);
+
+            player.GetComponent<ngMonsterController>().positionAndCamera = playerPosition[1];
         }
         else
         {
-            GameObject player = PhotonNetwork.Instantiate("Slime", playerPosition[0].position, Quaternion.identity);
+            GameObject player = PhotonNetwork.Instantiate("Slime", playerPosition[0].transform.position, Quaternion.identity);
+
+            player.GetComponent<ngMonsterController>().positionAndCamera = playerPosition[0];
         }
     }
 }

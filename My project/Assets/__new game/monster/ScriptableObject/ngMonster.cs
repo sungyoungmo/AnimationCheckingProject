@@ -15,7 +15,7 @@ public class ngMonster : ScriptableObject
 
     public int rootDEF;
 
-
+    public List<ngMonsterSkill> skillList;
 
     [Space(20)]
     [HideInInspector]

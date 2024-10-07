@@ -17,9 +17,12 @@ MonoBehaviour:
   rootATK: 25
   rootSPD: 20
   rootDEF: 20
-  currentHP: 0
-  lastATK: 0
-  lastSPD: 0
-  lastDEF: 0
+  skillList:
+  - {fileID: 11400000, guid: b0f78288c7cdadf45a17abb44f2639a6, type: 2}
+  currentHP: 150
+  lastATK: 25
+  lastSPD: 20
+  lastDEF: 20
   isDead: 0
-  buffs_Or_Debuffs: 0
+  buffs: 0
+  debuffs: 0

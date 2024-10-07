@@ -43,7 +43,7 @@ public class PhotonTest : MonoBehaviourPunCallbacks
     {
         // switch나 if문을 통해 samurai 바꿔 받기
         string a = "Paladine";
-        string b = "Samurai";
+        //string b = "Samurai";
 
         GameObject player = PhotonNetwork.Instantiate(a, new Vector3(0, 0, 0), Quaternion.identity);
         //BuffManager.instance.AddPlayerList(player.GetComponent<PlayerStatus>());

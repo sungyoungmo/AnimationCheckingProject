@@ -5,6 +5,10 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "ngMonsterSkillName", menuName = "Monster_ScriptableObject/ngMonsterSkill")]
 public class ngMonsterSkill : ScriptableObject
 {
+    public string skillName;
+
+    public string skillText;
+
     public Skilltype skill_Type;
 
     public monsterType skill_Elemtal_Type;
@@ -19,6 +23,10 @@ public class ngMonsterSkill : ScriptableObject
     public GetBuff getBuff;
 
     public TakeDebuff takeDebuff;
+
+    public string skill_Anim_ParameterName;
+
+    //public ngMonsterSkillCast skillCasting;
 }
 
 public enum Skilltype

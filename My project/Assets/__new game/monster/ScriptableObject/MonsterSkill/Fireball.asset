@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 990d154eb0e105d489adc782b5e627b1, type: 3}
   m_Name: Fireball
   m_EditorClassIdentifier: 
+  skillName: 
+  skillText: 
   skill_Type: 0
   skill_Elemtal_Type: 0
   damage: 30
@@ -23,3 +25,4 @@ MonoBehaviour:
   takeDebuff:
     debuff: 0
     duration: 0
+  skill_Anim_ParameterName: FireBall

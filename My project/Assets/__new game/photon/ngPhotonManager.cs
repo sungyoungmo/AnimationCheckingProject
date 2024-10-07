@@ -8,7 +8,9 @@ public class ngPhotonManager : MonoBehaviourPunCallbacks
 {
     private ClientState photonState = 0;
 
-    List<int> playerArr = new();
+    //List<int> playerArr = new();
+
+    public Transform[] playerPosition;
 
     private void Awake()
     {
@@ -79,6 +81,15 @@ public class ngPhotonManager : MonoBehaviourPunCallbacks
 
     public override void OnJoinedRoom()
     {
-        GameObject player = PhotonNetwork.Instantiate("player", new Vector3(0, 0, 0), Quaternion.identity);
+        
+
+        if (PhotonNetwork.CurrentRoom.PlayerCount > 1)
+        {
+            GameObject player = PhotonNetwork.Instantiate("Slime", playerPosition[1].position, Quaternion.identity);
+        }
+        else
+        {
+            GameObject player = PhotonNetwork.Instantiate("Slime", playerPosition[0].position, Quaternion.identity);
+        }
     }
 }

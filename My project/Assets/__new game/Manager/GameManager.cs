@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 
+
 public struct SkillOrder
 {
     public ngMonsterSkill skill { get; private set; }
@@ -21,6 +22,8 @@ public class GameManager : MonoBehaviour
 
     public List<ngMonsterController> playerList = new();
 
+    public List<GameObject> playerPositionList = new();
+
     public Dictionary<ngMonsterController, SkillOrder> skill_playerOrdered = new();
 
     private void Awake()
@@ -34,7 +37,28 @@ public class GameManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
+        foreach (var item in playerPositionList)
+        {
+            ngPhotonManager.instance.playerPosition.Add(item);
+        }
     }
+
+    private void OnEnable()
+    {
+        ngPhotonManager.instance.OnEnableGameManager();
+    }
+
+    private void OnDisable()
+    {
+        ngPhotonManager.instance.OndisableGameManager();
+    }
+
+    private void Start()
+    {
+        
+    }
+
 
     private void Update()
     {

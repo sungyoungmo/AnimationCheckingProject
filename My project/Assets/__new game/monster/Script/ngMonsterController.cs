@@ -11,16 +11,31 @@ public class ngMonsterController : MonoBehaviourPun, IPunObservable
 
     public Animator anim;
 
+    Camera playerCamera;
+
+    Canvas playerUI;
+
     private void Awake()
     {
+        if (!photonView.IsMine) return;
+
         anim = GetComponent<Animator>();
+
     }
 
     private void Start()
     {
-        PlayerAdd_Call();
-    }
+        if (!photonView.IsMine) return;
 
+        // gameManager의 awake가 실행되고 실행되어야 하기 떄문에 photonManager에서 사용 불가
+        PlayerAdd_Call();
+
+        positionAndCamera.transform.GetChild(0).gameObject.SetActive(true);
+
+        playerCamera = positionAndCamera.GetComponentInChildren<Camera>();
+
+        playerUI = positionAndCamera.GetComponentInChildren<Canvas>();
+    }
 
     public void PlayerAdd_Call()
     {
@@ -39,6 +54,7 @@ public class ngMonsterController : MonoBehaviourPun, IPunObservable
             GameManager.instance.PlayerAdd();
         }
     }
+
 
 
     public void Cast(ngMonsterSkill castingSKill, ngMonsterController target)

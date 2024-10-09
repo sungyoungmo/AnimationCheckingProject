@@ -32,14 +32,20 @@ public class ngBattleUIManager : MonoBehaviour
     // 
 
     GameObject actionUI_Skill;
+    TextMeshProUGUI playerMonsterName;
+    Slider PlayerMonsterHPBar;
+    TextMeshProUGUI playerMonsterHPText;
+    List<GameObject> SkillList = new();
+
+
     GameObject actionUI_Target;
+    List<GameObject> targetList = new();
 
-    GameObject StatusUI;
-    Scrollbar enemyHP;
-    Scrollbar myHP;
 
-    TextMeshProUGUI enemyName;
-    TextMeshProUGUI myName;
+    GameObject Enemy_StatusUI;
+    TextMeshProUGUI enemyMonsterName;
+    Slider enemyHP;
+    TextMeshProUGUI enemyMonsterHPText;
 
 
     // getchild 로 찾아올 거 같음
@@ -51,11 +57,60 @@ public class ngBattleUIManager : MonoBehaviour
     {
         BattleUI = playerUI;
 
-        playerUI.transform.GetChild(0);
+        actionUI_Skill = playerUI.transform.GetChild(0).gameObject;
+
+        actionUI_Target = playerUI.transform.GetChild(1).gameObject;
+
+        Enemy_StatusUI = playerUI.transform.GetChild(2).gameObject;
+
+        //playerMonsterName = actionUI_Skill.transform.GetChild(1).GetComponent<TextMeshProUGUI>();
 
     }
 
+    public void ActionSkillListInitialize()
+    {
+        playerMonsterName = actionUI_Skill.transform.GetChild(1).gameObject.GetComponent<TextMeshProUGUI>();
 
+        PlayerMonsterHPBar = actionUI_Skill.transform.GetChild(2).gameObject.GetComponent<Slider>();
 
+        playerMonsterHPText = actionUI_Skill.transform.GetChild(3).gameObject.GetComponent<TextMeshProUGUI>();
 
+        for (int i = 0; i < actionUI_Skill.transform.GetChild(4).childCount - 1; i++)
+        {
+            SkillList.Add(actionUI_Skill.transform.GetChild(4).GetChild(i).gameObject);
+        }
+    }
+
+    public void ActionSkillListUpdate()
+    {
+
+    }
+
+    public void ActionTargetListInitialize()
+    {
+        for (int i = 0; i < actionUI_Target.transform.GetChild(1).childCount - 1; i++)
+        {
+            targetList.Add(actionUI_Target.transform.GetChild(1).GetChild(i).gameObject);
+        }
+    }
+
+    public void ActionTargetListUpdate()
+    {
+
+    }
+
+    public void EnemyStatusInitialize()
+    {
+        enemyMonsterName = Enemy_StatusUI.transform.GetChild(1).gameObject.GetComponent<TextMeshProUGUI>();
+
+        enemyHP = Enemy_StatusUI.transform.GetChild(2).gameObject.GetComponent<Slider>();
+
+        enemyMonsterHPText = Enemy_StatusUI.transform.GetChild(3).gameObject.GetComponent<TextMeshProUGUI>();
+
+    }
+
+    public void EnemyStatusUpdate()
+    {
+
+    }
 }

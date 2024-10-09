@@ -35,6 +35,8 @@ public class ngMonsterController : MonoBehaviourPun, IPunObservable
         playerCamera = positionAndCamera.GetComponentInChildren<Camera>();
 
         playerUI = positionAndCamera.GetComponentInChildren<Canvas>();
+
+        ngBattleUIManager.instace.InitializeUI(playerUI);
     }
 
     public void PlayerAdd_Call()

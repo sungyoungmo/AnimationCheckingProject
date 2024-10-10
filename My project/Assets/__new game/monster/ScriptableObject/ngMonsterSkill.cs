@@ -26,6 +26,11 @@ public class ngMonsterSkill : ScriptableObject
 
     public string skill_Anim_ParameterName;
 
+    private void Awake()
+    {
+        currentSP = maxSP;
+    }
+
     //public ngMonsterSkillCast skillCasting;
 }
 

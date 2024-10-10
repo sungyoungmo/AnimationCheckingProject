@@ -12,14 +12,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d0db5abbda6d7d43965108bbf8c3d03, type: 3}
   m_Name: TurtleShell
   m_EditorClassIdentifier: 
-  ownType: {fileID: 0}
+  ownType: {fileID: 11400000, guid: 0f0baf921d063b849b97c781578bb604, type: 2}
+  monsterName: Turtle
   maxHP: 125
   rootATK: 25
   rootSPD: 25
   rootDEF: 25
-  currentHP: 0
-  lastATK: 0
-  lastSPD: 0
-  lastDEF: 0
+  skillList:
+  - {fileID: 11400000, guid: 9cb95a68d23d5a64eb0dc94e440b6c10, type: 2}
+  currentHP: 125
+  lastATK: 25
+  lastSPD: 25
+  lastDEF: 25
   isDead: 0
-  buffs_Or_Debuffs: 0
+  buffs: 0
+  debuffs: 0

@@ -486,6 +486,7 @@ MonoBehaviour:
   monsterInfo: {fileID: 11400000, guid: 270a9a672c54bef44bee1e03c904fd72, type: 2}
   positionAndCamera: {fileID: 0}
   anim: {fileID: 0}
+  playerviewId: 0
 --- !u!114 &1887811511112455934
 MonoBehaviour:
   m_ObjectHideFlags: 0

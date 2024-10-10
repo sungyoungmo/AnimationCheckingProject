@@ -15,12 +15,21 @@ public class ngMonsterController : MonoBehaviourPun, IPunObservable
 
     Canvas playerUI;
 
+    public int playerviewId;
+
     private void Awake()
     {
         if (!photonView.IsMine) return;
 
         anim = GetComponent<Animator>();
 
+        playerviewId = photonView.ViewID;
+
+    }
+
+    private void OnEnable()
+    {
+        
     }
 
     private void Start()
@@ -32,11 +41,13 @@ public class ngMonsterController : MonoBehaviourPun, IPunObservable
 
         positionAndCamera.transform.GetChild(0).gameObject.SetActive(true);
 
+        positionAndCamera.transform.GetChild(1).gameObject.SetActive(true);
+
         playerCamera = positionAndCamera.GetComponentInChildren<Camera>();
 
         playerUI = positionAndCamera.GetComponentInChildren<Canvas>();
 
-        ngBattleUIManager.instace.InitializeUI(playerUI);
+        ngBattleUIManager.instance.Initialize(playerUI, this);
     }
 
     public void PlayerAdd_Call()
@@ -49,7 +60,7 @@ public class ngMonsterController : MonoBehaviourPun, IPunObservable
     {
         if (GameManager.instance == null)
         {
-            Debug.Log(1);
+            Debug.Log("GameManager is null");
         }
         else
         {

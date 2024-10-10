@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 990d154eb0e105d489adc782b5e627b1, type: 3}
-  m_Name: Fireball
+  m_Name: GrassPunch
   m_EditorClassIdentifier: 
-  skillName: FireBall
+  skillName: GrassPunch
   skillText: 
   skill_Type: 0
-  skill_Elemtal_Type: 0
-  damage: 30
+  skill_Elemtal_Type: 1
+  damage: 25
   maxSP: 15
   currentSP: 0
   getBuff:
@@ -25,4 +25,4 @@ MonoBehaviour:
   takeDebuff:
     debuff: 0
     duration: 0
-  skill_Anim_ParameterName: FireBall
+  skill_Anim_ParameterName: 

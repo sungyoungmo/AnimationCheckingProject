@@ -7,6 +7,8 @@ public class ngMonster : ScriptableObject
 {
     public ngMonsterType ownType;
 
+    public string monsterName;
+
     public int maxHP;
 
     public int rootATK;

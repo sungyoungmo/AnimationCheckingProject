@@ -22,6 +22,10 @@ public class GameManager : MonoBehaviour
 
     public List<ngMonsterController> playerList = new();
 
+    //public Dictionary<int, ngMonsterController> playerList = new();
+
+    //public List<PlayerStr> playerList = new();
+
     public List<GameObject> playerPositionList = new();
 
     public Dictionary<ngMonsterController, SkillOrder> skill_playerOrdered = new();
@@ -56,9 +60,8 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        
-    }
 
+    }
 
     private void Update()
     {
@@ -70,18 +73,27 @@ public class GameManager : MonoBehaviour
         }
     }
 
-
     public void PlayerAdd()
     {
-        ngMonsterController[] players = FindObjectsOfType<ngMonsterController>();
+        ngMonsterController[] playerMonsters = FindObjectsOfType<ngMonsterController>();
 
-        foreach (var player in players)
+        foreach (var monster in playerMonsters)
         {
-            if (!playerList.Contains(player))
+            if (!playerList.Contains(monster))
             {
-                playerList.Add(player);
+                playerList.Add(monster);
             }
         }
+
+        if (playerList.Count == 2)
+        {
+            TurnStart();
+        }
+    }
+
+    public void TurnStart()
+    {
+        ngBattleUIManager.instance.TurnStartUIUpdate();
     }
 
     public void CastOrder(ngMonsterController casterViewID, ngMonsterSkill castingSkill, int targetViewID)

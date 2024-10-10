@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Slime
   m_EditorClassIdentifier: 
   ownType: {fileID: 11400000, guid: 47f2590bd5a470742b3b0630b836338f, type: 2}
+  monsterName: Slime
   maxHP: 100
   rootATK: 30
   rootSPD: 20

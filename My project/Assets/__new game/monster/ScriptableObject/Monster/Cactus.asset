@@ -13,12 +13,13 @@ MonoBehaviour:
   m_Name: Cactus
   m_EditorClassIdentifier: 
   ownType: {fileID: 11400000, guid: fd290fbc2c3dda743a36e6dad49e6276, type: 2}
+  monsterName: Cactus
   maxHP: 150
   rootATK: 25
   rootSPD: 20
   rootDEF: 20
   skillList:
-  - {fileID: 11400000, guid: b0f78288c7cdadf45a17abb44f2639a6, type: 2}
+  - {fileID: 11400000, guid: a989f66cb4bc27f40826e9e0df2ac8ed, type: 2}
   currentHP: 150
   lastATK: 25
   lastSPD: 20

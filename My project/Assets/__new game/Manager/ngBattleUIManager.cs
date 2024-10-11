@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public struct Skill_Slot
+public class Skill_Slot
 {
     public Button Button_Skill;
 
@@ -14,13 +14,24 @@ public struct Skill_Slot
 
     public TextMeshProUGUI Text_SKillType;
 
-    public Skill_Slot(Button button_Skill, TextMeshProUGUI text_SkillName, TextMeshProUGUI text_SkillPoint, TextMeshProUGUI text_SKillType)
+    public ngMonsterSkill SKillInfo;
+
+    public Skill_Slot(Button button_Skill, TextMeshProUGUI text_SkillName, TextMeshProUGUI text_SkillPoint, TextMeshProUGUI text_SKillType, ngMonsterSkill skillInfo)
     {
         Button_Skill = button_Skill;
         Text_SkillName = text_SkillName;
         Text_SkillPoint = text_SkillPoint;
         Text_SKillType = text_SKillType;
+        SKillInfo = skillInfo;
     }
+
+    //public Skill_Slot(Button button_Skill, TextMeshProUGUI text_SkillName, TextMeshProUGUI text_SkillPoint, TextMeshProUGUI text_SKillType)
+    //{
+    //    Button_Skill = button_Skill;
+    //    Text_SkillName = text_SkillName;
+    //    Text_SkillPoint = text_SkillPoint;
+    //    Text_SKillType = text_SKillType;
+    //}
 }
 
 public class ngBattleUIManager : MonoBehaviour
@@ -100,6 +111,11 @@ public class ngBattleUIManager : MonoBehaviour
         EnemyStatusInitialize();
     }
 
+    public void buttonClick()
+    {
+        Debug.Log("Clicked");
+    }
+
     public void ActionSkillListInitialize()
     {
         playerMonsterName = actionUI_Skill.transform.GetChild(1).gameObject.GetComponent<TextMeshProUGUI>();
@@ -108,24 +124,67 @@ public class ngBattleUIManager : MonoBehaviour
 
         playerMonsterHPText = actionUI_Skill.transform.GetChild(3).gameObject.GetComponent<TextMeshProUGUI>();
 
-        for (int i = 0; i < actionUI_Skill.transform.GetChild(4).childCount; i++)
+        for (int i = 0; i < myMonster.monsterInfo.skillList.Count; i++)
         {
             SkillList.Add(actionUI_Skill.transform.GetChild(4).GetChild(i).gameObject);
         }
 
-        foreach (var skill in SkillList)
+        //for (int i = 0; i < actionUI_Skill.transform.GetChild(4).childCount; i++)
+        //{
+        //    SkillList.Add(actionUI_Skill.transform.GetChild(4).GetChild(i).gameObject);
+        //}
+
+
+
+        for (int i = 0; i < myMonster.monsterInfo.skillList.Count; i++)
         {
             SkillSlot.Add
-                (
-                new Skill_Slot
-                    (
-                    skill.transform.GetChild(0).GetComponent<Button>(),
-                    skill.transform.GetChild(1).GetComponent<TextMeshProUGUI>(),
-                    skill.transform.GetChild(2).GetComponent<TextMeshProUGUI>(),
-                    skill.transform.GetChild(3).GetComponent<TextMeshProUGUI>()
-                    )
-                );
+                 (
+                 new Skill_Slot
+                     (
+                     SkillList[i].transform.GetChild(0).GetComponent<Button>(),
+                     SkillList[i].transform.GetChild(1).GetComponent<TextMeshProUGUI>(),
+                     SkillList[i].transform.GetChild(2).GetComponent<TextMeshProUGUI>(),
+                     SkillList[i].transform.GetChild(3).GetComponent<TextMeshProUGUI>(),
+                     myMonster.monsterInfo.skillList[i]
+                     )
+                 );
         }
+
+        //int skillIndex = 0;
+
+        //foreach (var skill in SkillList)
+        //{
+        //    if (myMonster.monsterInfo.skillList.Count-1 == skillIndex)
+        //    {
+        //        SkillSlot.Add
+        //         (
+        //         new Skill_Slot
+        //             (
+        //             skill.transform.GetChild(0).GetComponent<Button>(),
+        //             skill.transform.GetChild(1).GetComponent<TextMeshProUGUI>(),
+        //             skill.transform.GetChild(2).GetComponent<TextMeshProUGUI>(),
+        //             skill.transform.GetChild(3).GetComponent<TextMeshProUGUI>(),
+        //             myMonster.monsterInfo.skillList[skillIndex]
+        //             )
+        //         );
+        //    }
+        //    else
+        //    {
+        //        SkillSlot.Add
+        //        (
+        //        new Skill_Slot
+        //            (
+        //            skill.transform.GetChild(0).GetComponent<Button>(),
+        //            skill.transform.GetChild(1).GetComponent<TextMeshProUGUI>(),
+        //            skill.transform.GetChild(2).GetComponent<TextMeshProUGUI>(),
+        //            skill.transform.GetChild(3).GetComponent<TextMeshProUGUI>()
+        //            )
+        //        );
+        //    }
+
+        //    skillIndex++;
+        //}
     }
 
     public void ActionSkillListUpdate()
@@ -136,7 +195,7 @@ public class ngBattleUIManager : MonoBehaviour
 
         playerMonsterHPText.text = $"{myMonster.monsterInfo.currentHP} / {myMonster.monsterInfo.maxHP}";
 
-        for (int i = 0; i < myMonster.monsterInfo.skillList.Count; i++)
+        for (int i = 0; i <SkillSlot.Count; i++)
         {
             SkillSlot[i].Button_Skill.interactable = true;
             SkillSlot[i].Text_SkillName.text = myMonster.monsterInfo.skillList[i].skillName;
@@ -144,13 +203,13 @@ public class ngBattleUIManager : MonoBehaviour
             SkillSlot[i].Text_SKillType.text= myMonster.monsterInfo.skillList[i].skill_Elemtal_Type.ToString();
         }
 
-        for (int i = SkillSlot.Count - 1; i >= myMonster.monsterInfo.skillList.Count; i--)
-        {
-            SkillSlot[i].Button_Skill.interactable = false;
-            SkillSlot[i].Text_SkillName.text = null;
-            SkillSlot[i].Text_SkillPoint.text = null;
-            SkillSlot[i].Text_SKillType.text = null;
-        }
+        //for (int i = SkillSlot.Count - 1; i >= myMonster.monsterInfo.skillList.Count; i--)
+        //{
+        //    SkillSlot[i].Button_Skill.interactable = false;
+        //    SkillSlot[i].Text_SkillName.text = null;
+        //    SkillSlot[i].Text_SkillPoint.text = null;
+        //    SkillSlot[i].Text_SKillType.text = null;
+        //}
 
     }
 
@@ -163,8 +222,6 @@ public class ngBattleUIManager : MonoBehaviour
 
             targetListButton.Add(targetList[i].transform.GetChild(0).GetComponent<Button>());
 
-
-            //targetList.Add(actionUI_Target.transform.GetChild(1).GetChild(i).gameObject.GetComponent<Button>());
         }
 
         Debug.Log(targetListButton.Count);
@@ -172,9 +229,6 @@ public class ngBattleUIManager : MonoBehaviour
 
     public void ActionTargetListUpdate()
     {
-        Debug.Log($"tl : {targetList.Count} tlb: {targetListButton.Count} pl: {GameManager.instance.playerList.Count}");
-        
-
         for (int i = 0; i < GameManager.instance.playerList.Count; i++)
         {
             //targetList[i].transform.GetChild(1).GetComponent<Text>().text = GameManager.instance.playerList[i].GetComponent<ngMonsterController>().monsterInfo.monsterName;
@@ -199,8 +253,6 @@ public class ngBattleUIManager : MonoBehaviour
 
     public void EnemyStatusUpdate()
     {
-        Debug.Log($"ESU.pl: {GameManager.instance.playerList.Count}");
-
         foreach (var item in GameManager.instance.playerList)
         {
             if (item != myMonster)

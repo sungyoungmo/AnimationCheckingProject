@@ -224,7 +224,7 @@ public class ngBattleUIManager : MonoBehaviour
 
         }
 
-        Debug.Log(targetListButton.Count);
+        actionUI_Target.SetActive(false);
     }
 
     public void ActionTargetListUpdate()
